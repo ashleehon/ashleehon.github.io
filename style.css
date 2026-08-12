@@ -90,17 +90,17 @@
 /* ---------------------------------------------------------------------------
    Palette: slip cream, clay, celadon — with clay in the primary role it holds
    in the ceramic swatches. Clay takes the type accents: headline italics,
-   links, section indices, the button. Celadon is structural, and carries
-   every rule on the page plus every second figure.
+   links, section indices, the button. Celadon appears on every second figure.
+   Rules are the template's bone, and stay out of the accent conversation.
 
-   Neither colour is the sole carrier of anything. Links are underlined as
+   Neither accent is the sole carrier of anything. Links are underlined as
    well as coloured, and the figures alternate for rhythm rather than meaning,
    so a reader who cannot separate the two loses nothing.
 
    --ink-faint runs a shade darker than the swatch it comes from because it
    lands on 11px uppercase labels, where the original reached only 3.0 against
    this paper. Celadon stays true at #77947c: it appears on display-size
-   figures and hairlines only, where 3.1 is enough.
+   figures only, where 3.1 is enough.
    --------------------------------------------------------------------------- */
 
 :root {
@@ -110,11 +110,8 @@
   --paper: #fdf6ec;
   --paper-lift: #fffdf9;
   --paper-deep: #f6ead9;
-  --rule: #77947c;
-  /* Light enough to sit below the structural rules, dark enough that the dots
-     still read as dots on a non-retina screen. */
-  --rule-soft: #96af9b;
-  --rule-style: dotted;
+  --rule: #e8dbc8;
+  --rule-soft: #f0e8da;
   --green: #77947c;
   --clay: #b5522f;
   --clay-lift: #fbeee5;
@@ -124,10 +121,6 @@
   --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
 
   --gutter: 10rem;
-
-  /* One dot period travelled per --march. Slow on purpose: fast enough to
-     notice if you look at a line, slow enough to ignore while reading. */
-  --march: 1.8s;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -138,8 +131,8 @@
     --paper: #16130e;
     --paper-lift: #1e1a13;
     --paper-deep: #201b14;
-    --rule: #4c6a53;
-    --rule-soft: #425c48;
+    --rule: #382f23;
+    --rule-soft: #2c251b;
     --green: #8dbd9c;
     --clay: #d4794c;
     --clay-lift: #2a1c13;
@@ -200,6 +193,7 @@ a { color: inherit; }
   position: relative;
   max-width: 74rem;
   margin: 0 auto;
+  border-inline: 1px solid var(--rule);
 }
 
 .masthead,
@@ -209,75 +203,45 @@ a { color: inherit; }
   grid-template-columns: var(--gutter) 1fr;
 }
 
-.block { position: relative; }
+.block { border-top: 1px solid var(--rule); }
 
 .block > .label {
-  position: relative;
   margin: 0;
   padding: 2.4rem 1.25rem;
+  border-right: 1px solid var(--rule);
 }
 
 /* ---------------------------------------------------------------------------
-   Marching rules. The structural lines are 1px gradient strips rather than
-   borders, because a border's dots cannot be made to move: horizontals drift
-   right and verticals drift down, so the frame reads as one slow current
-   rather than four unrelated animations.
-
-   Only this tier moves. The dividers inside a block stay put — short lines
-   packed closely together read as noise in motion, not ornament — which also
-   means the movement tracks the hierarchy already set by --rule against
-   --rule-soft.
+   Wobbling rules. Every line here is a real border, so it survives print, a
+   failed script and a reader who has switched JavaScript off. wobble.js then
+   hides these borders — colour only, so the 1px they occupy still holds the
+   layout in place — and redraws the same geometry as SVG paths it can bend
+   under the cursor. Nothing below is load-bearing for the flat state.
    --------------------------------------------------------------------------- */
 
-@keyframes drift-x { to { background-position: 5px 0; } }
-@keyframes drift-y { to { background-position: 0 5px; } }
-
-.foot,
-.foot > span:first-child,
-.masthead > .label { position: relative; }
-
-.grid::before,
-.grid::after,
-.block::before,
-.foot::before,
-.block > .label::after,
-.masthead > .label::after,
-.foot > span:first-child::after {
-  content: "";
+.wobble-layer {
   position: absolute;
-  --line: var(--rule);
+  inset: 0;
+  overflow: visible;
   pointer-events: none;
 }
+.wobble-layer path {
+  fill: none;
+  stroke: var(--rule);
+  stroke-width: 1;
+}
+.wobble-layer path.soft { stroke: var(--rule-soft); }
 
-.grid::before,
-.grid::after,
-.block > .label::after,
-.masthead > .label::after,
-.foot > span:first-child::after {
-  top: 0;
-  bottom: 0;
-  width: 1px;
-  background-image:
-    repeating-linear-gradient(180deg, var(--line) 0 2px, transparent 2px 5px);
-  animation: drift-y var(--march) linear infinite;
+/* Screen only: print wants the borders back, and the overlay gone. */
+@media screen {
+  html.js-lines .grid,
+  html.js-lines .block,
+  html.js-lines .foot,
+  html.js-lines .block > .label,
+  html.js-lines .masthead > .label,
+  html.js-lines .foot > span:first-child { border-color: transparent; }
 }
 
-.grid::before { left: 0; }
-.grid::after,
-.block > .label::after,
-.masthead > .label::after,
-.foot > span:first-child::after { right: 0; }
-
-.block::before,
-.foot::before {
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background-image:
-    repeating-linear-gradient(90deg, var(--line) 0 2px, transparent 2px 5px);
-  animation: drift-x var(--march) linear infinite;
-}
 .block > .content {
   min-width: 0;
   padding: 2.4rem 2.75rem 3.25rem;
@@ -291,6 +255,7 @@ a { color: inherit; }
 .masthead > .label {
   margin: 0;
   padding: 1.15rem 1.25rem;
+  border-right: 1px solid var(--rule);
   color: var(--ink);
 }
 .masthead > .content {
@@ -335,14 +300,14 @@ h1 em {
 .spec {
   margin: 3rem 0 0;
   max-width: 36rem;
-  border-top: 1px var(--rule-style) var(--rule-soft);
+  border-top: 1px solid var(--rule-soft);
 }
 .spec div {
   display: grid;
   grid-template-columns: 8.5rem 1fr;
   gap: 0.2rem 1.5rem;
   padding: 0.65rem 0;
-  border-bottom: 1px var(--rule-style) var(--rule-soft);
+  border-bottom: 1px solid var(--rule-soft);
 }
 .spec dt {
   font: 400 0.7rem/1.9 var(--mono);
@@ -382,15 +347,15 @@ h2 em { font-style: italic; color: var(--clay); }
 .figures {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  border-top: 1px var(--rule-style) var(--rule-soft);
+  border-top: 1px solid var(--rule-soft);
 }
 .figures > div {
   padding: 1.7rem 1.5rem 1.6rem 0;
-  border-bottom: 1px var(--rule-style) var(--rule-soft);
+  border-bottom: 1px solid var(--rule-soft);
 }
 .figures > div + div {
   padding-left: 1.5rem;
-  border-left: 1px var(--rule-style) var(--rule-soft);
+  border-left: 1px solid var(--rule-soft);
 }
 .figures > div:nth-child(3n+1) {
   padding-left: 0;
@@ -442,7 +407,7 @@ h2 em { font-style: italic; color: var(--clay); }
   gap: 2rem;
   margin: 0;
   padding-top: 1.6rem;
-  border-top: 1px var(--rule-style) var(--rule-soft);
+  border-top: 1px solid var(--rule-soft);
 }
 .facets dt {
   margin-bottom: 0.5rem;
@@ -455,8 +420,8 @@ h2 em { font-style: italic; color: var(--clay); }
 
 /* ---------- case studies ---------- */
 
-.case { border-top: 1px var(--rule-style) var(--rule-soft); }
-.case:last-child { border-bottom: 1px var(--rule-style) var(--rule-soft); }
+.case { border-top: 1px solid var(--rule-soft); }
+.case:last-child { border-bottom: 1px solid var(--rule-soft); }
 
 .case summary {
   display: grid;
@@ -520,7 +485,7 @@ h2 em { font-style: italic; color: var(--clay); }
   margin-top: 1.15rem !important;
   padding: 0.4rem 0.75rem;
   background: var(--clay-lift);
-  border: 1px var(--rule-style) var(--rule-soft);
+  border: 1px solid var(--rule-soft);
   font-size: 0.72rem;
   letter-spacing: 0.07em;
   color: var(--ink-soft) !important;
@@ -536,7 +501,7 @@ h2 em { font-style: italic; color: var(--clay); }
 }
 .principles > div {
   padding: 1.5rem 0;
-  border-top: 1px var(--rule-style) var(--rule-soft);
+  border-top: 1px solid var(--rule-soft);
 }
 .principles .idx {
   display: block;
@@ -556,13 +521,13 @@ h2 em { font-style: italic; color: var(--clay); }
 
 /* ---------- toolkit ---------- */
 
-.toolkit { margin: 0; border-top: 1px var(--rule-style) var(--rule-soft); }
+.toolkit { margin: 0; border-top: 1px solid var(--rule-soft); }
 .toolkit div {
   display: grid;
   grid-template-columns: 8.5rem 1fr;
   gap: 0.25rem 1.5rem;
   padding: 1rem 0;
-  border-bottom: 1px var(--rule-style) var(--rule-soft);
+  border-bottom: 1px solid var(--rule-soft);
 }
 .toolkit dt {
   font: 400 0.7rem/1.9 var(--mono);
@@ -581,9 +546,9 @@ h2 em { font-style: italic; color: var(--clay); }
   gap: 0.15rem 1.5rem;
   align-items: baseline;
   padding: 1.05rem 0;
-  border-top: 1px var(--rule-style) var(--rule-soft);
+  border-top: 1px solid var(--rule-soft);
 }
-.role:last-child { border-bottom: 1px var(--rule-style) var(--rule-soft); }
+.role:last-child { border-bottom: 1px solid var(--rule-soft); }
 .role .org { font-weight: 700; letter-spacing: -0.01em; }
 .role .title { font-size: 0.99rem; color: var(--ink-soft); }
 .role .when {
@@ -612,8 +577,10 @@ h2 em { font-style: italic; color: var(--clay); }
 }
 .btn:hover { transform: translateY(-2px); opacity: 0.92; }
 
+.foot { border-top: 1px solid var(--rule); }
 .foot > span:first-child {
   padding: 1.35rem 1.25rem;
+  border-right: 1px solid var(--rule);
 }
 .foot > span:last-child { padding: 1.35rem 2.75rem; }
 .foot a { color: var(--clay); text-decoration: none; }
@@ -636,20 +603,13 @@ h2 em { font-style: italic; color: var(--clay); }
   .label .idx, .label .nm { display: inline; margin: 0; }
 
   /* The label sits above its content rather than beside it, so its rule turns
-     the corner with it and marches sideways instead of down. */
-  .block > .label::after {
-    --line: var(--rule-soft);
-    inset: auto 0 0;
-    width: auto;
-    height: 1px;
-    background-image:
-      repeating-linear-gradient(90deg, var(--line) 0 2px, transparent 2px 5px);
-    animation-name: drift-x;
+     the corner with it. Nothing divides the other two once they are stacked. */
+  .block > .label {
+    border-right: 0;
+    border-bottom: 1px solid var(--rule-soft);
   }
-
-  /* Nothing to divide once these are stacked. */
-  .masthead > .label::after,
-  .foot > span:first-child::after { content: none; }
+  .masthead > .label,
+  .foot > span:first-child { border-right: 0; }
 
   .block > .content { padding: 2rem 1.5rem 2.75rem; }
   .hero > .content { padding-top: 3rem; padding-bottom: 3.5rem; }
@@ -676,10 +636,6 @@ h2 em { font-style: italic; color: var(--clay); }
   *, *::before, *::after {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
-    /* The marching rules loop forever, and a near-zero duration on an infinite
-       animation keeps repainting rather than stopping. Capping the count is
-       what actually holds them still. */
-    animation-iteration-count: 1 !important;
   }
 }
 
@@ -705,9 +661,6 @@ h2 em { font-style: italic; color: var(--clay); }
     --clay: #000;
     --clay-lift: #fff;
     --gutter: 0;
-    /* Dotted rules are the screen's idea. On paper they fleck and photocopy
-       badly, so the same borders print as hairlines. */
-    --rule-style: solid;
   }
 
   @page { margin: 13mm; }
@@ -716,19 +669,8 @@ h2 em { font-style: italic; color: var(--clay); }
 
   .skip, .btn, .plus { display: none !important; }
 
-  /* The marching rules are background images, and browsers drop background
-     graphics from a print by default — so they would vanish rather than print
-     dotted. Everything they drew is either unwanted on paper or restored as a
-     real border below. */
-  .grid::before,
-  .grid::after,
-  .block::before,
-  .foot::before,
-  .block > .label::after,
-  .masthead > .label::after,
-  .foot > span:first-child::after { content: none; }
-
-  .foot { border-top: 1px solid var(--rule); }
+  /* Paper has no cursor to follow. The borders underneath are still there. */
+  .wobble-layer { display: none; }
 
   .grid {
     max-width: none;
@@ -743,7 +685,7 @@ h2 em { font-style: italic; color: var(--clay); }
      what turned a two page CV into five. Put the columns back. */
   .spec div, .toolkit div { display: grid; grid-template-columns: 7rem 1fr; }
   .figures { grid-template-columns: repeat(3, 1fr); }
-  .figures > div + div { padding-left: 0.8rem; border-left: 1px var(--rule-style) var(--rule-soft); }
+  .figures > div + div { padding-left: 0.8rem; border-left: 1px solid var(--rule-soft); }
   .figures > div:nth-child(3n+1) { padding-left: 0; border-left: 0; }
   .facets { grid-template-columns: repeat(3, 1fr); }
   .principles { grid-template-columns: repeat(2, 1fr); column-gap: 1.5rem; }

@@ -8,6 +8,7 @@ files and push; the site updates in a minute or two.
 ```
 index.html   the whole site, one scrolling page
 style.css    styles: light, dark, and print
+wobble.js    decoration: bends the grid's rules under the cursor
 fonts/       self-hosted woff2 (Fraunces, Karla, IBM Plex Mono)
 ```
 
@@ -18,8 +19,21 @@ it, then work as named case studies that expand. Sections are numbered `00`–`0
 down the left, and each block draws its own two columns at matching widths rather than inheriting a
 CSS subgrid, so the rules stay aligned without depending on subgrid support.
 
-Case studies are `<details>` elements. No JavaScript is involved, which is why they still expand
+Case studies are `<details>` elements, with no JavaScript involved, which is why they still expand
 with scripting off and still open when printed.
+
+## The wobbling rules
+
+The one script on the page is decoration. The grid's lines are ordinary CSS borders, and stay that
+way for anyone printing, reading with scripting off, on a touch device, or asking for reduced
+motion. Where there is a cursor to follow, `wobble.js` hides those borders — their colour only, so
+the 1px they occupy still holds the layout together — and redraws the same geometry as SVG paths it
+can bend, so a line struck by the cursor is pushed aside and rings back to rest.
+
+It measures the borders rather than being told where they are, so moving a rule in the CSS moves the
+wobble with it. Two things it cannot see: a border that changes position without changing the grid's
+height, and a `<path>` needs its tier declared in the `specs` list because by the time it measures,
+every border colour it might have read is already transparent.
 
 ## Fonts are self-hosted
 
