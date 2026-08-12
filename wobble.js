@@ -25,10 +25,14 @@
 
   const REACH = 95;     // how near the cursor must pass before a line reacts
   const AMP = 7;        // px of displacement at the closest approach
-  const WAVE = 62;      // px per full oscillation along the line
+  const WAVE = 74;      // px per full oscillation along the line
   const SPREAD = 100;   // px over which the ripple fades out along the line
-  const DECAY = 0.9;    // share of the amplitude kept each frame
-  const SPIN = 0.34;    // radians the wave advances each frame
+  /* A heavy, slack line rather than a taut one: about 1.5 swings a second,
+     taking a second and a half to come to rest. DECAY and FLOOR set that tail
+     between them, so slowing one without loosening the other just cuts the
+     movement off early. */
+  const DECAY = 0.955;  // share of the amplitude kept each frame
+  const SPIN = 0.16;    // radians the wave advances each frame
   const STEP = 5;       // px between sampled points inside the ripple
   const FLOOR = 0.1;    // amplitude at which a line counts as back at rest
   const TAU = Math.PI * 2;
