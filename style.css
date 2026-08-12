@@ -158,19 +158,6 @@ h2 {
 
 .job li::marker { color: var(--accent); }
 
-/* ---------- footer ---------- */
-
-footer {
-  margin-top: 4rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--rule);
-  font-family: ui-sans-serif, system-ui, sans-serif;
-  font-size: 0.85rem;
-  color: var(--ink-faint);
-}
-
-footer p { margin: 0; }
-
 /* ---------- print ----------
    A CV is printed and PDF'd more often than it is browsed, so the print
    rendering is a first-class output, not an afterthought. Force light ink on
@@ -209,61 +196,4 @@ footer p { margin: 0; }
 
   .job, .skills { break-inside: avoid; page-break-inside: avoid; }
   h2 { break-after: avoid; page-break-after: avoid; }
-
-  /* Screen-only navigation is noise on paper. */
-  footer, .contact a[href^="pottery"] { display: none; }
-}
-
-/* ---------- pottery ---------- */
-
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr));
-  gap: 1.25rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.piece figure { margin: 0; }
-
-.piece .frame {
-  display: grid;
-  place-items: center;
-  aspect-ratio: 4 / 5;
-  border: 1px solid var(--rule);
-  border-radius: 2px;
-  background:
-    radial-gradient(120% 90% at 50% 15%, color-mix(in srgb, var(--accent) 12%, transparent), transparent 70%),
-    var(--paper);
-  color: var(--ink-faint);
-  font-family: ui-sans-serif, system-ui, sans-serif;
-  font-size: 0.75rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.piece img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 2px;
-}
-
-.piece figcaption {
-  margin-top: 0.6rem;
-  font-family: ui-sans-serif, system-ui, sans-serif;
-  font-size: 0.85rem;
-  color: var(--ink-faint);
-}
-
-.backlink {
-  display: inline-block;
-  margin-bottom: 2.5rem;
-  font-family: ui-sans-serif, system-ui, sans-serif;
-  font-size: 0.83rem;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--ink-faint);
 }
