@@ -119,6 +119,10 @@
   --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
 
   --gutter: 10rem;
+
+  /* One dot period travelled per --march. Slow on purpose: fast enough to
+     notice if you look at a line, slow enough to ignore while reading. */
+  --march: 1.8s;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -188,9 +192,9 @@ a { color: inherit; }
    --------------------------------------------------------------------------- */
 
 .grid {
+  position: relative;
   max-width: 74rem;
   margin: 0 auto;
-  border-inline: 1px var(--rule-style) var(--rule);
 }
 
 .masthead,
@@ -200,12 +204,74 @@ a { color: inherit; }
   grid-template-columns: var(--gutter) 1fr;
 }
 
-.block { border-top: 1px var(--rule-style) var(--rule); }
+.block { position: relative; }
 
 .block > .label {
+  position: relative;
   margin: 0;
   padding: 2.4rem 1.25rem;
-  border-right: 1px var(--rule-style) var(--rule);
+}
+
+/* ---------------------------------------------------------------------------
+   Marching rules. The structural lines are 1px gradient strips rather than
+   borders, because a border's dots cannot be made to move: horizontals drift
+   right and verticals drift down, so the frame reads as one slow current
+   rather than four unrelated animations.
+
+   Only this tier moves. The dividers inside a block stay put — short lines
+   packed closely together read as noise in motion, not ornament — which also
+   means the movement tracks the hierarchy already set by --rule against
+   --rule-soft.
+   --------------------------------------------------------------------------- */
+
+@keyframes drift-x { to { background-position: 5px 0; } }
+@keyframes drift-y { to { background-position: 0 5px; } }
+
+.foot,
+.foot > span:first-child,
+.masthead > .label { position: relative; }
+
+.grid::before,
+.grid::after,
+.block::before,
+.foot::before,
+.block > .label::after,
+.masthead > .label::after,
+.foot > span:first-child::after {
+  content: "";
+  position: absolute;
+  --line: var(--rule);
+  pointer-events: none;
+}
+
+.grid::before,
+.grid::after,
+.block > .label::after,
+.masthead > .label::after,
+.foot > span:first-child::after {
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background-image:
+    repeating-linear-gradient(180deg, var(--line) 0 2px, transparent 2px 5px);
+  animation: drift-y var(--march) linear infinite;
+}
+
+.grid::before { left: 0; }
+.grid::after,
+.block > .label::after,
+.masthead > .label::after,
+.foot > span:first-child::after { right: 0; }
+
+.block::before,
+.foot::before {
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-image:
+    repeating-linear-gradient(90deg, var(--line) 0 2px, transparent 2px 5px);
+  animation: drift-x var(--march) linear infinite;
 }
 .block > .content {
   min-width: 0;
@@ -220,7 +286,6 @@ a { color: inherit; }
 .masthead > .label {
   margin: 0;
   padding: 1.15rem 1.25rem;
-  border-right: 1px var(--rule-style) var(--rule);
   color: var(--ink);
 }
 .masthead > .content {
@@ -543,12 +608,8 @@ h2 em { font-style: italic; color: var(--green); }
 }
 .btn:hover { transform: translateY(-2px); opacity: 0.92; }
 
-.foot {
-  border-top: 1px var(--rule-style) var(--rule);
-}
 .foot > span:first-child {
   padding: 1.35rem 1.25rem;
-  border-right: 1px var(--rule-style) var(--rule);
 }
 .foot > span:last-child { padding: 1.35rem 2.75rem; }
 .foot a { color: var(--green); text-decoration: none; }
@@ -567,10 +628,24 @@ h2 em { font-style: italic; color: var(--green); }
     display: flex;
     gap: 0.9rem;
     padding: 1.1rem 1.5rem;
-    border-right: 0;
-    border-bottom: 1px var(--rule-style) var(--rule-soft);
   }
   .label .idx, .label .nm { display: inline; margin: 0; }
+
+  /* The label sits above its content rather than beside it, so its rule turns
+     the corner with it and marches sideways instead of down. */
+  .block > .label::after {
+    --line: var(--rule-soft);
+    inset: auto 0 0;
+    width: auto;
+    height: 1px;
+    background-image:
+      repeating-linear-gradient(90deg, var(--line) 0 2px, transparent 2px 5px);
+    animation-name: drift-x;
+  }
+
+  /* Nothing to divide once these are stacked. */
+  .masthead > .label::after,
+  .foot > span:first-child::after { content: none; }
 
   .block > .content { padding: 2rem 1.5rem 2.75rem; }
   .hero > .content { padding-top: 3rem; padding-bottom: 3.5rem; }
@@ -589,7 +664,6 @@ h2 em { font-style: italic; color: var(--green); }
 
   .foot > span:first-child {
     padding: 1.2rem 1.5rem 0.4rem;
-    border-right: 0;
   }
   .foot > span:last-child { padding: 0 1.5rem 1.2rem; }
 }
@@ -598,6 +672,10 @@ h2 em { font-style: italic; color: var(--green); }
   *, *::before, *::after {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
+    /* The marching rules loop forever, and a near-zero duration on an infinite
+       animation keeps repainting rather than stopping. Capping the count is
+       what actually holds them still. */
+    animation-iteration-count: 1 !important;
   }
 }
 
@@ -633,6 +711,20 @@ h2 em { font-style: italic; color: var(--green); }
   body { font-size: 10pt; line-height: 1.42; }
 
   .skip, .btn, .plus { display: none !important; }
+
+  /* The marching rules are background images, and browsers drop background
+     graphics from a print by default — so they would vanish rather than print
+     dotted. Everything they drew is either unwanted on paper or restored as a
+     real border below. */
+  .grid::before,
+  .grid::after,
+  .block::before,
+  .foot::before,
+  .block > .label::after,
+  .masthead > .label::after,
+  .foot > span:first-child::after { content: none; }
+
+  .foot { border-top: 1px solid var(--rule); }
 
   .grid {
     max-width: none;
