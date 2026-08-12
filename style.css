@@ -88,26 +88,31 @@
 }
 
 /* ---------------------------------------------------------------------------
-   Palette. Warm cream paper, ceramic greens and clay. Green carries meaning
-   (figures, links, section indices); clay is decoration only, so nothing is
-   lost by a reader who cannot separate the two.
+   Palette: slip cream, celadon, clay. Green carries meaning (figures, links,
+   section indices, every rule on the page); clay is decoration only, so
+   nothing is lost by a reader who cannot separate the two.
+
+   Two colours are pulled slightly darker than the ceramic swatches they come
+   from, because both land on small text: celadon at #77947c reaches only 3.1
+   against this paper, which is fine for a hairline and not for an 11px label.
+   The rules keep the lighter celadon; text uses the deeper mix.
    --------------------------------------------------------------------------- */
 
 :root {
-  --ink: #241f1a;
-  --ink-soft: #5e5546;
-  --ink-faint: #928873;
-  --paper: #fbf6ec;
-  --paper-lift: #fffdf8;
-  --paper-deep: #f4ead8;
-  --rule: #e1d4bd;
-  --rule-soft: #ece2cf;
-  --green: #3a6b4f;
-  --green-lift: #eaf0e6;
-  --clay: #ad5330;
-  --glaze-green: #9ec1a4;
-  --glaze-clay: #e2a377;
-  --glaze-opacity: 0.5;
+  --ink: #2c2521;
+  --ink-soft: #6c5f56;
+  --ink-faint: #776a5c;
+  --paper: #fdf6ec;
+  --paper-lift: #fffdf9;
+  --paper-deep: #f6ead9;
+  --rule: #77947c;
+  /* Light enough to sit below the structural rules, dark enough that the dots
+     still read as dots on a non-retina screen. */
+  --rule-soft: #96af9b;
+  --rule-style: dotted;
+  --green: #4e6d57;
+  --green-lift: #edf2ea;
+  --clay: #b5522f;
 
   --display: "Fraunces", ui-serif, Georgia, "Times New Roman", serif;
   --body: "Karla", ui-sans-serif, system-ui, -apple-system, sans-serif;
@@ -118,20 +123,17 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --ink: #f0e8db;
-    --ink-soft: #b0a493;
-    --ink-faint: #857a69;
-    --paper: #17140f;
-    --paper-lift: #201c15;
-    --paper-deep: #221d15;
-    --rule: #362f24;
-    --rule-soft: #2a2419;
+    --ink: #f1e7d8;
+    --ink-soft: #b3a693;
+    --ink-faint: #8d8171;
+    --paper: #16130e;
+    --paper-lift: #1e1a13;
+    --paper-deep: #201b14;
+    --rule: #4c6a53;
+    --rule-soft: #425c48;
     --green: #8dbd9c;
     --green-lift: #1e2a21;
-    --clay: #dd8c5d;
-    --glaze-green: #3e6b4d;
-    --glaze-clay: #7a4526;
-    --glaze-opacity: 0.42;
+    --clay: #d4794c;
   }
 }
 
@@ -146,7 +148,6 @@ body {
   font: 400 1.0625rem/1.65 var(--body);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  overflow-x: hidden;
 }
 
 a { color: inherit; }
@@ -179,32 +180,6 @@ a { color: inherit; }
   color: var(--ink-faint);
 }
 
-/* ---------- glaze: blurred fields poured behind the page ---------- */
-
-.glaze {
-  position: absolute;
-  z-index: 0;
-  border-radius: 50%;
-  filter: blur(90px);
-  opacity: var(--glaze-opacity);
-  pointer-events: none;
-}
-.g1 {
-  width: 44rem; height: 32rem;
-  top: -13rem; right: -13rem;
-  background: radial-gradient(circle, var(--glaze-clay), transparent 68%);
-}
-.g2 {
-  width: 38rem; height: 30rem;
-  top: 40rem; left: -17rem;
-  background: radial-gradient(circle, var(--glaze-green), transparent 68%);
-}
-.g3 {
-  width: 42rem; height: 30rem;
-  bottom: -6rem; right: -14rem;
-  background: radial-gradient(circle, var(--glaze-green), transparent 70%);
-}
-
 /* ---------------------------------------------------------------------------
    The page is one ruled sheet: a narrow column of section labels on the left,
    content on the right. Each block draws its own two columns at the same
@@ -213,11 +188,9 @@ a { color: inherit; }
    --------------------------------------------------------------------------- */
 
 .grid {
-  position: relative;
-  z-index: 1;
   max-width: 74rem;
   margin: 0 auto;
-  border-inline: 1px solid var(--rule);
+  border-inline: 1px var(--rule-style) var(--rule);
 }
 
 .masthead,
@@ -227,12 +200,12 @@ a { color: inherit; }
   grid-template-columns: var(--gutter) 1fr;
 }
 
-.block { border-top: 1px solid var(--rule); }
+.block { border-top: 1px var(--rule-style) var(--rule); }
 
 .block > .label {
   margin: 0;
   padding: 2.4rem 1.25rem;
-  border-right: 1px solid var(--rule);
+  border-right: 1px var(--rule-style) var(--rule);
 }
 .block > .content {
   min-width: 0;
@@ -247,7 +220,7 @@ a { color: inherit; }
 .masthead > .label {
   margin: 0;
   padding: 1.15rem 1.25rem;
-  border-right: 1px solid var(--rule);
+  border-right: 1px var(--rule-style) var(--rule);
   color: var(--ink);
 }
 .masthead > .content {
@@ -294,14 +267,14 @@ h1 em {
 .spec {
   margin: 3rem 0 0;
   max-width: 36rem;
-  border-top: 1px solid var(--rule-soft);
+  border-top: 1px var(--rule-style) var(--rule-soft);
 }
 .spec div {
   display: grid;
   grid-template-columns: 8.5rem 1fr;
   gap: 0.2rem 1.5rem;
   padding: 0.65rem 0;
-  border-bottom: 1px solid var(--rule-soft);
+  border-bottom: 1px var(--rule-style) var(--rule-soft);
 }
 .spec dt {
   font: 400 0.7rem/1.9 var(--mono);
@@ -341,15 +314,15 @@ h2 em { font-style: italic; color: var(--green); }
 .figures {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  border-top: 1px solid var(--rule-soft);
+  border-top: 1px var(--rule-style) var(--rule-soft);
 }
 .figures > div {
   padding: 1.7rem 1.5rem 1.6rem 0;
-  border-bottom: 1px solid var(--rule-soft);
+  border-bottom: 1px var(--rule-style) var(--rule-soft);
 }
 .figures > div + div {
   padding-left: 1.5rem;
-  border-left: 1px solid var(--rule-soft);
+  border-left: 1px var(--rule-style) var(--rule-soft);
 }
 .figures > div:nth-child(3n+1) {
   padding-left: 0;
@@ -400,7 +373,7 @@ h2 em { font-style: italic; color: var(--green); }
   gap: 2rem;
   margin: 0;
   padding-top: 1.6rem;
-  border-top: 1px solid var(--rule-soft);
+  border-top: 1px var(--rule-style) var(--rule-soft);
 }
 .facets dt {
   margin-bottom: 0.5rem;
@@ -413,8 +386,8 @@ h2 em { font-style: italic; color: var(--green); }
 
 /* ---------- case studies ---------- */
 
-.case { border-top: 1px solid var(--rule-soft); }
-.case:last-child { border-bottom: 1px solid var(--rule-soft); }
+.case { border-top: 1px var(--rule-style) var(--rule-soft); }
+.case:last-child { border-bottom: 1px var(--rule-style) var(--rule-soft); }
 
 .case summary {
   display: grid;
@@ -478,7 +451,7 @@ h2 em { font-style: italic; color: var(--green); }
   margin-top: 1.15rem !important;
   padding: 0.4rem 0.75rem;
   background: var(--green-lift);
-  border: 1px solid var(--rule-soft);
+  border: 1px var(--rule-style) var(--rule-soft);
   font-size: 0.72rem;
   letter-spacing: 0.07em;
   color: var(--ink-soft) !important;
@@ -494,7 +467,7 @@ h2 em { font-style: italic; color: var(--green); }
 }
 .principles > div {
   padding: 1.5rem 0;
-  border-top: 1px solid var(--rule-soft);
+  border-top: 1px var(--rule-style) var(--rule-soft);
 }
 .principles .idx {
   display: block;
@@ -514,13 +487,13 @@ h2 em { font-style: italic; color: var(--green); }
 
 /* ---------- toolkit ---------- */
 
-.toolkit { margin: 0; border-top: 1px solid var(--rule-soft); }
+.toolkit { margin: 0; border-top: 1px var(--rule-style) var(--rule-soft); }
 .toolkit div {
   display: grid;
   grid-template-columns: 8.5rem 1fr;
   gap: 0.25rem 1.5rem;
   padding: 1rem 0;
-  border-bottom: 1px solid var(--rule-soft);
+  border-bottom: 1px var(--rule-style) var(--rule-soft);
 }
 .toolkit dt {
   font: 400 0.7rem/1.9 var(--mono);
@@ -539,9 +512,9 @@ h2 em { font-style: italic; color: var(--green); }
   gap: 0.15rem 1.5rem;
   align-items: baseline;
   padding: 1.05rem 0;
-  border-top: 1px solid var(--rule-soft);
+  border-top: 1px var(--rule-style) var(--rule-soft);
 }
-.role:last-child { border-bottom: 1px solid var(--rule-soft); }
+.role:last-child { border-bottom: 1px var(--rule-style) var(--rule-soft); }
 .role .org { font-weight: 700; letter-spacing: -0.01em; }
 .role .title { font-size: 0.99rem; color: var(--ink-soft); }
 .role .when {
@@ -571,11 +544,11 @@ h2 em { font-style: italic; color: var(--green); }
 .btn:hover { transform: translateY(-2px); opacity: 0.92; }
 
 .foot {
-  border-top: 1px solid var(--rule);
+  border-top: 1px var(--rule-style) var(--rule);
 }
 .foot > span:first-child {
   padding: 1.35rem 1.25rem;
-  border-right: 1px solid var(--rule);
+  border-right: 1px var(--rule-style) var(--rule);
 }
 .foot > span:last-child { padding: 1.35rem 2.75rem; }
 .foot a { color: var(--green); text-decoration: none; }
@@ -595,7 +568,7 @@ h2 em { font-style: italic; color: var(--green); }
     gap: 0.9rem;
     padding: 1.1rem 1.5rem;
     border-right: 0;
-    border-bottom: 1px solid var(--rule-soft);
+    border-bottom: 1px var(--rule-style) var(--rule-soft);
   }
   .label .idx, .label .nm { display: inline; margin: 0; }
 
@@ -619,8 +592,6 @@ h2 em { font-style: italic; color: var(--green); }
     border-right: 0;
   }
   .foot > span:last-child { padding: 0 1.5rem 1.2rem; }
-
-  .glaze { filter: blur(70px); }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -652,13 +623,16 @@ h2 em { font-style: italic; color: var(--green); }
     --green-lift: #fff;
     --clay: #000;
     --gutter: 0;
+    /* Dotted rules are the screen's idea. On paper they fleck and photocopy
+       badly, so the same borders print as hairlines. */
+    --rule-style: solid;
   }
 
   @page { margin: 13mm; }
 
   body { font-size: 10pt; line-height: 1.42; }
 
-  .glaze, .skip, .btn, .plus { display: none !important; }
+  .skip, .btn, .plus { display: none !important; }
 
   .grid {
     max-width: none;
@@ -673,7 +647,7 @@ h2 em { font-style: italic; color: var(--green); }
      what turned a two page CV into five. Put the columns back. */
   .spec div, .toolkit div { display: grid; grid-template-columns: 7rem 1fr; }
   .figures { grid-template-columns: repeat(3, 1fr); }
-  .figures > div + div { padding-left: 0.8rem; border-left: 1px solid var(--rule-soft); }
+  .figures > div + div { padding-left: 0.8rem; border-left: 1px var(--rule-style) var(--rule-soft); }
   .figures > div:nth-child(3n+1) { padding-left: 0; border-left: 0; }
   .facets { grid-template-columns: repeat(3, 1fr); }
   .principles { grid-template-columns: repeat(2, 1fr); column-gap: 1.5rem; }
