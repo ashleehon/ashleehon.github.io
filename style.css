@@ -307,13 +307,11 @@ a { color: inherit; }
 
 .hero > .content { padding-top: 5.5rem; padding-bottom: 5.5rem; }
 
-/* The headline is short enough to carry more size than a sentence-length one
-   could, so it runs larger than h2 by more than the usual step. */
 h1 {
   margin: 0;
-  max-width: 22ch;
+  max-width: 25ch;
   font-family: var(--display);
-  font-size: clamp(2.6rem, 7vw, 5.2rem);
+  font-size: clamp(2.4rem, 6.2vw, 4.7rem);
   font-weight: 400;
   font-variation-settings: "SOFT" 25, "WONK" 1;
   line-height: 1.03;
