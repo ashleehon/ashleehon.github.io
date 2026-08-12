@@ -74,6 +74,10 @@ a:hover { color: var(--accent); }
   color: var(--ink-faint);
 }
 
+/* URLs and addresses read badly in caps. */
+.contact .url,
+.contact a[href^="mailto"] { text-transform: none; }
+
 /* ---------- sections ---------- */
 
 .summary p {
