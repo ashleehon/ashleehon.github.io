@@ -193,12 +193,15 @@ a { color: inherit; }
   position: relative;
   max-width: 74rem;
   margin: 0 auto;
-  border-inline: 1px solid var(--rule);
+  /* Closed on three sides. The top is left open because the masthead is the
+     page's own edge, and a rule above it would read as a frame around the name
+     rather than the start of the grid. */
+  border: 1px solid var(--rule);
+  border-top: 0;
 }
 
 .masthead,
-.block,
-.foot {
+.block {
   display: grid;
   grid-template-columns: var(--gutter) 1fr;
 }
@@ -236,10 +239,8 @@ a { color: inherit; }
 @media screen {
   html.js-lines .grid,
   html.js-lines .block,
-  html.js-lines .foot,
   html.js-lines .block > .label,
-  html.js-lines .masthead > .label,
-  html.js-lines .foot > span:first-child { border-color: transparent; }
+  html.js-lines .masthead > .label { border-color: transparent; }
 }
 
 .block > .content {
@@ -577,23 +578,13 @@ h2 em { font-style: italic; color: var(--clay); }
 }
 .btn:hover { transform: translateY(-2px); opacity: 0.92; }
 
-.foot { border-top: 1px solid var(--rule); }
-.foot > span:first-child {
-  padding: 1.35rem 1.25rem;
-  border-right: 1px solid var(--rule);
-}
-.foot > span:last-child { padding: 1.35rem 2.75rem; }
-.foot a { color: var(--clay); text-decoration: none; }
-.foot a:hover { text-decoration: underline; text-underline-offset: 3px; }
-
 /* ---------- narrow screens ---------- */
 
 @media (max-width: 56rem) {
   :root { --gutter: 0; }
 
   .masthead,
-  .block,
-  .foot { grid-template-columns: 1fr; }
+  .block { grid-template-columns: 1fr; }
 
   .block > .label {
     display: flex;
@@ -608,8 +599,7 @@ h2 em { font-style: italic; color: var(--clay); }
     border-right: 0;
     border-bottom: 1px solid var(--rule-soft);
   }
-  .masthead > .label,
-  .foot > span:first-child { border-right: 0; }
+  .masthead > .label { border-right: 0; }
 
   .block > .content { padding: 2rem 1.5rem 2.75rem; }
   .hero > .content { padding-top: 3rem; padding-bottom: 3.5rem; }
@@ -625,11 +615,6 @@ h2 em { font-style: italic; color: var(--clay); }
   .case summary { grid-template-columns: 2.6rem 1fr 1.1rem; }
   .case .org { display: none; }
   .case-body { grid-template-columns: 1fr; }
-
-  .foot > span:first-child {
-    padding: 1.2rem 1.5rem 0.4rem;
-  }
-  .foot > span:last-child { padding: 0 1.5rem 1.2rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -677,7 +662,7 @@ h2 em { font-style: italic; color: var(--clay); }
     border: 0;
   }
 
-  .masthead, .block, .foot { grid-template-columns: 1fr; display: block; }
+  .masthead, .block { grid-template-columns: 1fr; display: block; }
   .block { border-top: 0; }
 
   /* A letter page is about 51rem wide, so the narrow-screen breakpoint above

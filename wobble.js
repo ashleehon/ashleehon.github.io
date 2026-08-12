@@ -48,9 +48,8 @@
   const specs = [
     [grid, 'left', 0],
     [grid, 'right', 0],
+    [grid, 'bottom', 0],
     [document.querySelector('.masthead > .label'), 'right', 0],
-    [document.querySelector('.foot'), 'top', 0],
-    [document.querySelector('.foot > span:first-child'), 'right', 0],
   ];
 
   for (const block of document.querySelectorAll('.block')) {
