@@ -1,21 +1,137 @@
+/* ---------------------------------------------------------------------------
+   Fonts are served from this repo rather than a CDN. A third party font host
+   sees every visitor's IP and referrer, and adds a second connection before
+   any text can paint; neither is worth it for three families.
+   --------------------------------------------------------------------------- */
+
+@font-face {
+  font-family: "Fraunces";
+  font-style: normal;
+  font-weight: 300 800;
+  font-display: swap;
+  src: url("fonts/fraunces-latin-300_800.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Fraunces";
+  font-style: normal;
+  font-weight: 300 800;
+  font-display: swap;
+  src: url("fonts/fraunces-latin-ext-300_800.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
+    U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+    U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: "Karla";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("fonts/karla-latin-400_700.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Karla";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("fonts/karla-latin-ext-400_700.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
+    U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+    U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/plexmono-latin-400.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/plexmono-latin-ext-400.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
+    U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+    U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("fonts/plexmono-latin-500.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("fonts/plexmono-latin-ext-500.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
+    U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+    U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* ---------------------------------------------------------------------------
+   Palette. Warm cream paper, ceramic greens and clay. Green carries meaning
+   (figures, links, section indices); clay is decoration only, so nothing is
+   lost by a reader who cannot separate the two.
+   --------------------------------------------------------------------------- */
+
 :root {
-  --ink: #16181d;
-  --ink-soft: #4a5058;
-  --ink-faint: #8b929c;
-  --paper: #fbfaf8;
-  --rule: #e4e1db;
-  --accent: #8c5a3c;
-  --measure: 46rem;
+  --ink: #241f1a;
+  --ink-soft: #5e5546;
+  --ink-faint: #928873;
+  --paper: #fbf6ec;
+  --paper-lift: #fffdf8;
+  --paper-deep: #f4ead8;
+  --rule: #e1d4bd;
+  --rule-soft: #ece2cf;
+  --green: #3a6b4f;
+  --green-lift: #eaf0e6;
+  --clay: #ad5330;
+  --glaze-green: #9ec1a4;
+  --glaze-clay: #e2a377;
+  --glaze-opacity: 0.5;
+
+  --display: "Fraunces", ui-serif, Georgia, "Times New Roman", serif;
+  --body: "Karla", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  --gutter: 10rem;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --ink: #e8e6e2;
-    --ink-soft: #a8aeb8;
-    --ink-faint: #767d87;
-    --paper: #15171a;
-    --rule: #2b2f35;
-    --accent: #c08a63;
+    --ink: #f0e8db;
+    --ink-soft: #b0a493;
+    --ink-faint: #857a69;
+    --paper: #17140f;
+    --paper-lift: #201c15;
+    --paper-deep: #221d15;
+    --rule: #362f24;
+    --rule-soft: #2a2419;
+    --green: #8dbd9c;
+    --green-lift: #1e2a21;
+    --clay: #dd8c5d;
+    --glaze-green: #3e6b4d;
+    --glaze-clay: #7a4526;
+    --glaze-opacity: 0.42;
   }
 }
 
@@ -24,176 +140,593 @@
 html { -webkit-text-size-adjust: 100%; }
 
 body {
-  margin: 0 auto;
-  padding: 4.5rem 1.5rem 6rem;
-  max-width: var(--measure);
+  margin: 0;
   background: var(--paper);
   color: var(--ink);
-  font: 400 1rem/1.65 ui-serif, Georgia, "Iowan Old Style", "Times New Roman", serif;
+  font: 400 1.0625rem/1.65 var(--body);
+  -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  overflow-x: hidden;
 }
 
-a {
-  color: inherit;
-  text-decoration-color: var(--accent);
-  text-decoration-thickness: 1px;
-  text-underline-offset: 2px;
+a { color: inherit; }
+
+:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
 }
 
-a:hover { color: var(--accent); }
+.skip {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 10;
+  padding: 0.7rem 1.1rem;
+  background: var(--green);
+  color: var(--paper-lift);
+  font: 500 0.8rem/1 var(--mono);
+  text-decoration: none;
+}
+.skip:focus { left: 0; }
+
+.mono {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  line-height: 1.5;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+/* ---------- glaze: blurred fields poured behind the page ---------- */
+
+.glaze {
+  position: absolute;
+  z-index: 0;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: var(--glaze-opacity);
+  pointer-events: none;
+}
+.g1 {
+  width: 44rem; height: 32rem;
+  top: -13rem; right: -13rem;
+  background: radial-gradient(circle, var(--glaze-clay), transparent 68%);
+}
+.g2 {
+  width: 38rem; height: 30rem;
+  top: 40rem; left: -17rem;
+  background: radial-gradient(circle, var(--glaze-green), transparent 68%);
+}
+.g3 {
+  width: 42rem; height: 30rem;
+  bottom: -6rem; right: -14rem;
+  background: radial-gradient(circle, var(--glaze-green), transparent 70%);
+}
+
+/* ---------------------------------------------------------------------------
+   The page is one ruled sheet: a narrow column of section labels on the left,
+   content on the right. Each block draws its own two columns at the same
+   widths rather than inheriting a subgrid, which keeps the rules aligned
+   without depending on subgrid support.
+   --------------------------------------------------------------------------- */
+
+.grid {
+  position: relative;
+  z-index: 1;
+  max-width: 74rem;
+  margin: 0 auto;
+  border-inline: 1px solid var(--rule);
+}
+
+.masthead,
+.block,
+.foot {
+  display: grid;
+  grid-template-columns: var(--gutter) 1fr;
+}
+
+.block { border-top: 1px solid var(--rule); }
+
+.block > .label {
+  margin: 0;
+  padding: 2.4rem 1.25rem;
+  border-right: 1px solid var(--rule);
+}
+.block > .content {
+  min-width: 0;
+  padding: 2.4rem 2.75rem 3.25rem;
+}
+
+.label .idx { display: block; color: var(--green); font-weight: 500; }
+.label .nm { display: block; margin-top: 0.5rem; }
 
 /* ---------- masthead ---------- */
 
-.masthead { margin-bottom: 3rem; }
-
-.masthead h1 {
+.masthead > .label {
   margin: 0;
-  font-size: clamp(2.1rem, 6vw, 2.9rem);
-  font-weight: 500;
-  letter-spacing: -0.02em;
-  line-height: 1.1;
+  padding: 1.15rem 1.25rem;
+  border-right: 1px solid var(--rule);
+  color: var(--ink);
 }
-
-.role {
-  margin: 0.4rem 0 1.1rem;
-  color: var(--ink-soft);
-  font-size: 1.05rem;
-}
-
-.contact {
+.masthead > .content {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.4rem 1.4rem;
+  justify-content: space-between;
+  gap: 0.35rem 2rem;
+  padding: 1.15rem 2.75rem;
+}
+.masthead a { text-decoration: none; color: var(--green); }
+.masthead a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+/* ---------- hero ---------- */
+
+.hero > .content { padding-top: 5.5rem; padding-bottom: 5.5rem; }
+
+h1 {
   margin: 0;
-  padding: 0;
-  list-style: none;
-  font-family: ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", sans-serif;
-  font-size: 0.83rem;
-  letter-spacing: 0.04em;
+  max-width: 26ch;
+  font-family: var(--display);
+  font-size: clamp(2.35rem, 5.6vw, 4.4rem);
+  font-weight: 400;
+  font-variation-settings: "SOFT" 25, "WONK" 1;
+  line-height: 1.03;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+h1 em {
+  font-style: italic;
+  color: var(--green);
+}
+
+.standfirst {
+  margin: 2.25rem 0 0;
+  max-width: 48ch;
+  font-size: 1.15rem;
+  color: var(--ink-soft);
+}
+
+/* a spec sheet, in the manner of a data dictionary */
+
+.spec {
+  margin: 3rem 0 0;
+  max-width: 36rem;
+  border-top: 1px solid var(--rule-soft);
+}
+.spec div {
+  display: grid;
+  grid-template-columns: 8.5rem 1fr;
+  gap: 0.2rem 1.5rem;
+  padding: 0.65rem 0;
+  border-bottom: 1px solid var(--rule-soft);
+}
+.spec dt {
+  font: 400 0.7rem/1.9 var(--mono);
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--ink-faint);
 }
-
-/* URLs and addresses read badly in caps. */
-.contact .url,
-.contact a[href^="mailto"] { text-transform: none; }
-
-/* ---------- sections ---------- */
-
-.summary p {
-  margin: 0 0 3rem;
-  font-size: 1.12rem;
-  line-height: 1.6;
-  color: var(--ink-soft);
+.spec dd { margin: 0; font-size: 0.99rem; }
+.lnk {
+  color: var(--green);
+  text-decoration: none;
+  box-shadow: inset 0 -1px 0 currentColor;
 }
+.lnk:hover { box-shadow: inset 0 -2px 0 currentColor; }
 
-section { margin-bottom: 3rem; }
+/* ---------- shared headings ---------- */
 
 h2 {
-  margin: 0 0 1.5rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid var(--rule);
-  font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
-  font-size: 0.78rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--ink-faint);
+  margin: 0 0 0.7rem;
+  font-family: var(--display);
+  font-size: clamp(1.65rem, 3vw, 2.4rem);
+  font-weight: 400;
+  font-variation-settings: "SOFT" 25;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
 }
+h2 em { font-style: italic; color: var(--green); }
 
-/* ---------- skills ---------- */
-
-.skills {
-  display: grid;
-  grid-template-columns: 6.5rem 1fr;
-  gap: 0.75rem 1.5rem;
-  margin: 0;
-}
-
-.skills dt {
-  font-family: ui-sans-serif, system-ui, sans-serif;
-  font-size: 0.78rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--ink-faint);
-  padding-top: 0.2rem;
-}
-
-.skills dd { margin: 0; color: var(--ink-soft); }
-
-/* ---------- jobs ---------- */
-
-.job { margin-bottom: 2rem; }
-
-.job h3 {
-  margin: 0;
-  font-size: 1.18rem;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-}
-
-.meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.2rem 0.9rem;
-  margin: 0.25rem 0 0.7rem;
-  font-family: ui-sans-serif, system-ui, sans-serif;
-  font-size: 0.85rem;
-  color: var(--ink-faint);
-}
-
-.meta span:not(:last-child)::after {
-  content: "·";
-  margin-left: 0.9rem;
-  color: var(--rule);
-}
-
-.job ul {
-  margin: 0;
-  padding-left: 1.1rem;
+.deck {
+  margin: 0 0 2.5rem;
+  max-width: 48ch;
   color: var(--ink-soft);
 }
 
-.job li { margin-bottom: 0.45rem; }
+/* ---------- figures ---------- */
 
-.job li::marker { color: var(--accent); }
+.figures {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--rule-soft);
+}
+.figures > div {
+  padding: 1.7rem 1.5rem 1.6rem 0;
+  border-bottom: 1px solid var(--rule-soft);
+}
+.figures > div + div {
+  padding-left: 1.5rem;
+  border-left: 1px solid var(--rule-soft);
+}
+.figures > div:nth-child(3n+1) {
+  padding-left: 0;
+  border-left: 0;
+}
+.figure {
+  display: block;
+  font-family: var(--display);
+  font-size: clamp(2rem, 3.6vw, 2.85rem);
+  font-weight: 400;
+  font-variation-settings: "SOFT" 30;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+  color: var(--green);
+}
+.figures > div:nth-child(even) .figure { color: var(--clay); }
+.figure-label {
+  display: block;
+  margin-top: 0.7rem;
+  font: 400 0.72rem/1.5 var(--mono);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+.figure-src {
+  display: block;
+  margin-top: 0.3rem;
+  font-size: 0.88rem;
+  color: var(--ink-faint);
+}
 
-/* ---------- print ----------
-   A CV is printed and PDF'd more often than it is browsed, so the print
-   rendering is a first-class output, not an afterthought. Force light ink on
-   white regardless of the reader's colour scheme, drop interactive chrome, and
-   keep an entry from splitting across a page break. */
+/* ---------- profile ---------- */
+
+.lede {
+  margin: 0 0 1rem;
+  max-width: 30ch;
+  font-family: var(--display);
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+  font-weight: 400;
+  font-variation-settings: "SOFT" 25;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.facets {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin: 0;
+  padding-top: 1.6rem;
+  border-top: 1px solid var(--rule-soft);
+}
+.facets dt {
+  margin-bottom: 0.5rem;
+  font: 400 0.7rem/1.4 var(--mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--green);
+}
+.facets dd { margin: 0; font-size: 0.99rem; color: var(--ink-soft); }
+
+/* ---------- case studies ---------- */
+
+.case { border-top: 1px solid var(--rule-soft); }
+.case:last-child { border-bottom: 1px solid var(--rule-soft); }
+
+.case summary {
+  display: grid;
+  grid-template-columns: 3.4rem 1fr 7rem 1.1rem;
+  align-items: baseline;
+  gap: 1.25rem;
+  padding: 1.45rem 0;
+  list-style: none;
+  cursor: pointer;
+}
+.case summary::-webkit-details-marker { display: none; }
+
+.case .num { letter-spacing: 0.08em; }
+.case[open] .num,
+.case summary:hover .num { color: var(--green); }
+
+.case h3 {
+  margin: 0;
+  font-family: var(--display);
+  font-size: clamp(1.12rem, 2vw, 1.45rem);
+  font-weight: 400;
+  font-variation-settings: "SOFT" 25;
+  line-height: 1.22;
+  letter-spacing: -0.015em;
+  transition: color 0.2s;
+}
+.case summary:hover h3 { color: var(--green); }
+
+.case .org { text-align: right; }
+
+.case .plus {
+  position: relative;
+  align-self: center;
+  width: 1.1rem;
+  height: 1.1rem;
+}
+.case .plus::before,
+.case .plus::after {
+  content: "";
+  position: absolute;
+  inset: 50% 0 auto;
+  height: 1px;
+  background: var(--ink-faint);
+  transition: transform 0.22s, background 0.2s;
+}
+.case .plus::after { transform: rotate(90deg); }
+.case[open] .plus::after { transform: rotate(0deg); }
+.case[open] .plus::before,
+.case[open] .plus::after { background: var(--green); }
+
+.case-body {
+  display: grid;
+  grid-template-columns: 3.4rem 1fr;
+  gap: 1.25rem;
+  padding: 0 0 1.9rem;
+}
+.case-body p { margin: 0; max-width: 58ch; color: var(--ink-soft); }
+
+.metric {
+  display: inline-block;
+  margin-top: 1.15rem !important;
+  padding: 0.4rem 0.75rem;
+  background: var(--green-lift);
+  border: 1px solid var(--rule-soft);
+  font-size: 0.72rem;
+  letter-spacing: 0.07em;
+  color: var(--ink-soft) !important;
+}
+.metric b { color: var(--green); font-weight: 500; }
+
+/* ---------- method ---------- */
+
+.principles {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 3rem;
+}
+.principles > div {
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--rule-soft);
+}
+.principles .idx {
+  display: block;
+  margin-bottom: 0.6rem;
+  color: var(--green);
+}
+.principles h3 {
+  margin: 0 0 0.45rem;
+  font-family: var(--display);
+  font-size: 1.12rem;
+  font-weight: 500;
+  font-variation-settings: "SOFT" 25;
+  line-height: 1.28;
+  letter-spacing: -0.015em;
+}
+.principles p { margin: 0; font-size: 0.97rem; color: var(--ink-soft); }
+
+/* ---------- toolkit ---------- */
+
+.toolkit { margin: 0; border-top: 1px solid var(--rule-soft); }
+.toolkit div {
+  display: grid;
+  grid-template-columns: 8.5rem 1fr;
+  gap: 0.25rem 1.5rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--rule-soft);
+}
+.toolkit dt {
+  font: 400 0.7rem/1.9 var(--mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--green);
+}
+.toolkit dd { margin: 0; font-size: 0.99rem; color: var(--ink-soft); }
+
+/* ---------- record ---------- */
+
+.roles { margin-top: 2.25rem; }
+.role {
+  display: grid;
+  grid-template-columns: 9.5rem 1fr 8rem;
+  gap: 0.15rem 1.5rem;
+  align-items: baseline;
+  padding: 1.05rem 0;
+  border-top: 1px solid var(--rule-soft);
+}
+.role:last-child { border-bottom: 1px solid var(--rule-soft); }
+.role .org { font-weight: 700; letter-spacing: -0.01em; }
+.role .title { font-size: 0.99rem; color: var(--ink-soft); }
+.role .when {
+  text-align: right;
+  letter-spacing: 0.06em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- contact ---------- */
+
+.outro > .content { padding-bottom: 4rem; }
+.outro h2 { max-width: 24ch; font-size: clamp(1.9rem, 4.4vw, 3.2rem); }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 2rem;
+  padding: 0.9rem 1.5rem;
+  background: var(--green);
+  color: var(--paper-lift);
+  font: 500 0.8rem/1 var(--mono);
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: transform 0.18s, opacity 0.18s;
+}
+.btn:hover { transform: translateY(-2px); opacity: 0.92; }
+
+.foot {
+  border-top: 1px solid var(--rule);
+}
+.foot > span:first-child {
+  padding: 1.35rem 1.25rem;
+  border-right: 1px solid var(--rule);
+}
+.foot > span:last-child { padding: 1.35rem 2.75rem; }
+.foot a { color: var(--green); text-decoration: none; }
+.foot a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+/* ---------- narrow screens ---------- */
+
+@media (max-width: 56rem) {
+  :root { --gutter: 0; }
+
+  .masthead,
+  .block,
+  .foot { grid-template-columns: 1fr; }
+
+  .block > .label {
+    display: flex;
+    gap: 0.9rem;
+    padding: 1.1rem 1.5rem;
+    border-right: 0;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .label .idx, .label .nm { display: inline; margin: 0; }
+
+  .block > .content { padding: 2rem 1.5rem 2.75rem; }
+  .hero > .content { padding-top: 3rem; padding-bottom: 3.5rem; }
+  .masthead > .content { padding: 1.1rem 1.5rem; }
+
+  .figures, .facets, .principles { grid-template-columns: 1fr; }
+  .figures > div + div { padding-left: 0; border-left: 0; }
+  .figures > div { padding-right: 0; }
+
+  .spec div, .toolkit div, .role { grid-template-columns: 1fr; }
+  .role .when { text-align: left; }
+
+  .case summary { grid-template-columns: 2.6rem 1fr 1.1rem; }
+  .case .org { display: none; }
+  .case-body { grid-template-columns: 1fr; }
+
+  .foot > span:first-child {
+    padding: 1.2rem 1.5rem 0.4rem;
+    border-right: 0;
+  }
+  .foot > span:last-child { padding: 0 1.5rem 1.2rem; }
+
+  .glaze { filter: blur(70px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Print. A CV is printed and PDF'd more often than a site like this is
+   browsed, so this is a real output rather than an afterthought: light ink on
+   white whatever the reader's colour scheme, every collapsed case study forced
+   open (otherwise the page prints with most of its content missing), and no
+   entry allowed to split across a page break.
+   --------------------------------------------------------------------------- */
 
 @media print {
   :root {
     --ink: #000;
-    --ink-soft: #1a1a1a;
+    --ink-soft: #1c1c1c;
     --ink-faint: #555;
     --paper: #fff;
-    --rule: #bbb;
-    --accent: #000;
+    --paper-lift: #fff;
+    --paper-deep: #fff;
+    --rule: #b6b6b6;
+    --rule-soft: #d2d2d2;
+    --green: #000;
+    --green-lift: #fff;
+    --clay: #000;
+    --gutter: 0;
   }
 
-  @page { margin: 14mm; }
+  @page { margin: 13mm; }
 
-  body {
+  body { font-size: 10pt; line-height: 1.42; }
+
+  .glaze, .skip, .btn, .plus { display: none !important; }
+
+  .grid {
     max-width: none;
-    padding: 0;
-    font-size: 10.5pt;
-    line-height: 1.45;
+    border: 0;
   }
 
-  a { text-decoration: none; }
+  .masthead, .block, .foot { grid-template-columns: 1fr; display: block; }
+  .block { border-top: 0; }
 
-  .masthead { margin-bottom: 1.4rem; }
-  .masthead h1 { font-size: 22pt; }
-  .role { margin-bottom: 0.5rem; font-size: 11pt; }
-  .summary p { margin-bottom: 1.4rem; font-size: 10.5pt; }
-  section { margin-bottom: 1.4rem; }
-  h2 { margin-bottom: 0.8rem; }
-  .job { margin-bottom: 1rem; }
-  .job li { margin-bottom: 0.15rem; }
+  /* A letter page is about 51rem wide, so the narrow-screen breakpoint above
+     matches when printing and collapses every grid to one column — which is
+     what turned a two page CV into five. Put the columns back. */
+  .spec div, .toolkit div { display: grid; grid-template-columns: 7rem 1fr; }
+  .figures { grid-template-columns: repeat(3, 1fr); }
+  .figures > div + div { padding-left: 0.8rem; border-left: 1px solid var(--rule-soft); }
+  .figures > div:nth-child(3n+1) { padding-left: 0; border-left: 0; }
+  .facets { grid-template-columns: repeat(3, 1fr); }
+  .principles { grid-template-columns: repeat(2, 1fr); column-gap: 1.5rem; }
+  .role { grid-template-columns: 7.5rem 1fr 5.5rem; }
+  .role .when { text-align: right; }
+  .case summary { grid-template-columns: 2.2rem 1fr 5.5rem; }
+  .case .org { display: block; }
+  .case-body { grid-template-columns: 2.2rem 1fr; }
 
-  .job, .skills { break-inside: avoid; page-break-inside: avoid; }
-  h2 { break-after: avoid; page-break-after: avoid; }
+  .block > .label {
+    padding: 0 0 0.2rem;
+    border: 0;
+    font-size: 7.5pt;
+    letter-spacing: 0.14em;
+    color: #555;
+  }
+  .label .idx { display: none; }
+  .label .nm { display: inline; }
+
+  .block > .content { padding: 0 0 0.85rem; }
+  .hero > .content { padding: 0 0 0.7rem; }
+  .masthead > .content { padding: 0 0 0.5rem; display: block; }
+  .masthead > .label { padding: 0; font-size: 15pt; letter-spacing: 0.04em; }
+  .masthead > .content span + span::before { content: " · "; }
+
+  h1 { font-size: 15pt; max-width: none; }
+  h2 { font-size: 12pt; margin-bottom: 0.3rem; }
+  .standfirst { margin-top: 0.5rem; font-size: 10pt; max-width: none; }
+  .deck { margin-bottom: 0.6rem; }
+  .lede { font-size: 12pt; }
+  .spec { margin-top: 0.7rem; }
+
+  /* Collapsed <details> hide their contents through the UA stylesheet, which a
+     print run has no way to click open. */
+  .case > .case-body { display: grid !important; }
+  .case summary { padding: 0.35rem 0 0.15rem; cursor: auto; }
+  .case-body { padding-bottom: 0.5rem; }
+  .metric { border: 0; padding: 0; margin-top: 0.35rem !important; font-weight: 500; }
+
+  .figures, .facets, .principles { gap: 0 1.2rem; }
+  .figures > div { padding: 0.5rem 0.8rem 0.4rem 0; }
+  .figure { font-size: 14pt; }
+
+  .role { padding: 0.32rem 0; }
+  .roles { margin-top: 0.5rem; }
+
+  a { text-decoration: none; box-shadow: none !important; }
+
+  .case, .role, .principles > div, .figures > div, .spec div, .toolkit div {
+    break-inside: avoid;
+  }
+  h1, h2, .label { break-after: avoid; }
+
+  /* Dropped on paper: the convictions are positioning for a browsing reader,
+     and the contact block is a button nobody can press. Losing them is what
+     keeps this to two pages. */
+  #method, #contact { display: none; }
 }

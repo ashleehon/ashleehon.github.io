@@ -1,0 +1,5 @@
+# Rejected design directions and reference screenshots. Useful locally, but this
+# repo is world-readable and publishes whatever it contains, so they stay out.
+mocks/
+
+.DS_Store
