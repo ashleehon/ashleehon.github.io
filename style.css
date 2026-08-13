@@ -1,7 +1,12 @@
 /* ---------------------------------------------------------------------------
    Fonts are served from this repo rather than a CDN. A third party font host
    sees every visitor's IP and referrer, and adds a second connection before
-   any text can paint; neither is worth it for three families.
+   any text can paint; neither is worth it for two families.
+
+   Two, not three: the body and the labels are both IBM Plex, so the page runs
+   on one superfamily plus Fraunces for display. Plex Sans also has a taller
+   x-height and a plainer texture than the Karla it replaces, which matters
+   here because most of the words on this page are set small.
    --------------------------------------------------------------------------- */
 
 @font-face {
@@ -26,21 +31,21 @@
 }
 
 @font-face {
-  font-family: "Karla";
+  font-family: "IBM Plex Sans";
   font-style: normal;
-  font-weight: 400 700;
+  font-weight: 100 700;
   font-display: swap;
-  src: url("fonts/karla-latin-400_700.woff2") format("woff2");
+  src: url("fonts/plexsans-latin-100_700.woff2") format("woff2");
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
     U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
     U+2212, U+2215, U+FEFF, U+FFFD;
 }
 @font-face {
-  font-family: "Karla";
+  font-family: "IBM Plex Sans";
   font-style: normal;
-  font-weight: 400 700;
+  font-weight: 100 700;
   font-display: swap;
-  src: url("fonts/karla-latin-ext-400_700.woff2") format("woff2");
+  src: url("fonts/plexsans-latin-ext-100_700.woff2") format("woff2");
   unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
     U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
     U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
@@ -117,7 +122,7 @@
   --clay-lift: #fbeee5;
 
   --display: "Fraunces", ui-serif, Georgia, "Times New Roman", serif;
-  --body: "Karla", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --body: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
 
   --gutter: 10rem;
@@ -208,10 +213,19 @@ a { color: inherit; }
 
 .block { border-top: 1px solid var(--rule); }
 
+/* The label sticks to the top of the viewport for as long as its section lasts,
+   which is what turns 00–07 from ornament into a position indicator on a page
+   this long. It needs no background: nothing else occupies its column.
+
+   The rule dividing the two columns therefore belongs to the content, not the
+   label — a sticky element shrinks to its own height and would have taken a
+   full-height border with it. */
 .block > .label {
+  position: sticky;
+  top: 0;
+  align-self: start;
   margin: 0;
   padding: 2.4rem 1.25rem;
-  border-right: 1px solid var(--rule);
 }
 
 /* ---------------------------------------------------------------------------
@@ -240,12 +254,14 @@ a { color: inherit; }
   html.js-lines .grid,
   html.js-lines .block,
   html.js-lines .block > .label,
-  html.js-lines .masthead > .label { border-color: transparent; }
+  html.js-lines .block > .content,
+  html.js-lines .masthead > .content { border-color: transparent; }
 }
 
 .block > .content {
   min-width: 0;
   padding: 2.4rem 2.75rem 3.25rem;
+  border-left: 1px solid var(--rule);
 }
 
 .label .idx { display: block; color: var(--clay); font-weight: 500; }
@@ -256,7 +272,6 @@ a { color: inherit; }
 .masthead > .label {
   margin: 0;
   padding: 1.15rem 1.25rem;
-  border-right: 1px solid var(--rule);
   color: var(--ink);
 }
 .masthead > .content {
@@ -265,6 +280,7 @@ a { color: inherit; }
   justify-content: space-between;
   gap: 0.35rem 2rem;
   padding: 1.15rem 2.75rem;
+  border-left: 1px solid var(--rule);
 }
 .masthead a { text-decoration: none; color: var(--clay); }
 .masthead a:hover { text-decoration: underline; text-underline-offset: 3px; }
@@ -323,6 +339,20 @@ h1 em {
   box-shadow: inset 0 -1px 0 currentColor;
 }
 .lnk:hover { box-shadow: inset 0 -2px 0 currentColor; }
+
+/* The CV is this page's print stylesheet rather than a file sitting in the
+   repo, so the control is a button that asks the browser to print. It stays
+   hidden until the script that wires it runs — nobody should be offered a
+   button that cannot do anything. */
+.print { display: none; }
+html.js-print .print {
+  display: inline;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  cursor: pointer;
+}
 
 /* ---------- shared headings ---------- */
 
@@ -391,15 +421,11 @@ h2 em { font-style: italic; color: var(--clay); }
 
 /* ---------- profile ---------- */
 
+/* Sized as an h2 because that is what it is. Peer headings set at three
+   different sizes read as a hierarchy that the page does not actually have. */
 .lede {
-  margin: 0 0 1rem;
+  margin: 0 0 0.7rem;
   max-width: 30ch;
-  font-family: var(--display);
-  font-size: clamp(1.5rem, 3vw, 2.1rem);
-  font-weight: 400;
-  font-variation-settings: "SOFT" 25;
-  line-height: 1.2;
-  letter-spacing: -0.02em;
 }
 
 .facets {
@@ -426,7 +452,7 @@ h2 em { font-style: italic; color: var(--clay); }
 
 .case summary {
   display: grid;
-  grid-template-columns: 3.4rem 1fr 7rem 1.1rem;
+  grid-template-columns: 3.4rem 1fr 11.5rem 1.1rem;
   align-items: baseline;
   gap: 1.25rem;
   padding: 1.45rem 0;
@@ -451,7 +477,11 @@ h2 em { font-style: italic; color: var(--clay); }
 }
 .case summary:hover h3 { color: var(--clay); }
 
-.case .org { text-align: right; }
+/* The outcome rides on the closed row. Five of the six cases are shut when the
+   page loads, so whatever sits here is all a scanner gets — an employer name
+   repeated down the column was the least it could have been. */
+.case .stat { text-align: right; }
+.case .stat b { font-weight: 500; color: var(--clay); }
 
 .case .plus {
   position: relative;
@@ -481,17 +511,12 @@ h2 em { font-style: italic; color: var(--clay); }
 }
 .case-body p { margin: 0; max-width: 58ch; color: var(--ink-soft); }
 
-.metric {
-  display: inline-block;
-  margin-top: 1.15rem !important;
-  padding: 0.4rem 0.75rem;
-  background: var(--clay-lift);
-  border: 1px solid var(--rule-soft);
-  font-size: 0.72rem;
-  letter-spacing: 0.07em;
-  color: var(--ink-soft) !important;
+/* Where the work happened. It lives inside the case rather than on the closed
+   row, so it reads once, to a reader who has already chosen to open it. */
+.case-body .where {
+  margin-bottom: 0.7rem;
+  letter-spacing: 0.09em;
 }
-.metric b { color: var(--clay); font-weight: 500; }
 
 /* ---------- method ---------- */
 
@@ -536,7 +561,12 @@ h2 em { font-style: italic; color: var(--clay); }
   text-transform: uppercase;
   color: var(--clay);
 }
-.toolkit dd { margin: 0; font-size: 0.99rem; color: var(--ink-soft); }
+.toolkit dd {
+  margin: 0;
+  max-width: 58ch;
+  font-size: 0.99rem;
+  color: var(--ink-soft);
+}
 
 /* ---------- record ---------- */
 
@@ -550,12 +580,19 @@ h2 em { font-style: italic; color: var(--clay); }
   border-top: 1px solid var(--rule-soft);
 }
 .role:last-child { border-bottom: 1px solid var(--rule-soft); }
-.role .org { font-weight: 700; letter-spacing: -0.01em; }
+.role .org { font-weight: 600; letter-spacing: -0.01em; }
 .role .title { font-size: 0.99rem; color: var(--ink-soft); }
 .role .when {
   text-align: right;
   letter-spacing: 0.06em;
   font-variant-numeric: tabular-nums;
+}
+/* The education row runs school over degrees, and carries no dates: the years
+   a degree took are the least interesting fact in this table. */
+.role .degrees {
+  grid-column: 2;
+  font-size: 0.93rem;
+  color: var(--ink-faint);
 }
 
 /* ---------- contact ---------- */
@@ -586,20 +623,22 @@ h2 em { font-style: italic; color: var(--clay); }
   .masthead,
   .block { grid-template-columns: 1fr; }
 
+  /* Stacked above its content, the label is a bar rather than a column, so it
+     stops sticking — a bar pinned to the top of a phone screen would cover the
+     words underneath, and the drawn rules are measured where they sit. */
   .block > .label {
+    position: static;
     display: flex;
     gap: 0.9rem;
     padding: 1.1rem 1.5rem;
+    border-bottom: 1px solid var(--rule-soft);
   }
   .label .idx, .label .nm { display: inline; margin: 0; }
 
-  /* The label sits above its content rather than beside it, so its rule turns
-     the corner with it. Nothing divides the other two once they are stacked. */
-  .block > .label {
-    border-right: 0;
-    border-bottom: 1px solid var(--rule-soft);
-  }
-  .masthead > .label { border-right: 0; }
+  /* The dividing rule turns the corner with the label. Nothing divides the
+     masthead once its two halves are stacked. */
+  .block > .content,
+  .masthead > .content { border-left: 0; }
 
   .block > .content { padding: 2rem 1.5rem 2.75rem; }
   .hero > .content { padding-top: 3rem; padding-bottom: 3.5rem; }
@@ -611,9 +650,18 @@ h2 em { font-style: italic; color: var(--clay); }
 
   .spec div, .toolkit div, .role { grid-template-columns: 1fr; }
   .role .when { text-align: left; }
+  .role .degrees { grid-column: 1; }
 
-  .case summary { grid-template-columns: 2.6rem 1fr 1.1rem; }
-  .case .org { display: none; }
+  /* No room for the outcome beside the title, and it is too much of the point
+     to drop, so it takes its own line under it. */
+  .case summary {
+    grid-template-columns: 2.4rem 1fr 1.1rem;
+    row-gap: 0.4rem;
+  }
+  .case .num { grid-area: 1 / 1; }
+  .case summary h3 { grid-area: 1 / 2; }
+  .case .plus { grid-area: 1 / 3; }
+  .case .stat { grid-area: 2 / 2 / auto / 4; text-align: left; }
   .case-body { grid-template-columns: 1fr; }
 }
 
@@ -650,9 +698,12 @@ h2 em { font-style: italic; color: var(--clay); }
 
   @page { margin: 13mm; }
 
-  body { font-size: 10pt; line-height: 1.42; }
+  /* Plex Sans sets wider than the Karla it replaced, and every case now carries
+     a provenance line, so the two-page fit is tighter than it was. */
+  body { font-size: 9.6pt; line-height: 1.34; }
 
-  .skip, .btn, .plus { display: none !important; }
+  /* The CV row is the button that started this print. */
+  .skip, .btn, .plus, .cv-row { display: none !important; }
 
   /* Paper has no cursor to follow. The borders underneath are still there. */
   .wobble-layer { display: none; }
@@ -664,23 +715,30 @@ h2 em { font-style: italic; color: var(--clay); }
 
   .masthead, .block { grid-template-columns: 1fr; display: block; }
   .block { border-top: 0; }
+  .block > .content, .masthead > .content { border-left: 0; }
 
   /* A letter page is about 51rem wide, so the narrow-screen breakpoint above
      matches when printing and collapses every grid to one column — which is
      what turned a two page CV into five. Put the columns back. */
   .spec div, .toolkit div { display: grid; grid-template-columns: 7rem 1fr; }
-  .figures { grid-template-columns: repeat(3, 1fr); }
+  /* minmax(0,...) or a long uppercase label sets its own column wider than
+     the share it was given and pushes the last one off the sheet. */
+  .figures { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .figures > div + div { padding-left: 0.8rem; border-left: 1px solid var(--rule-soft); }
   .figures > div:nth-child(3n+1) { padding-left: 0; border-left: 0; }
-  .facets { grid-template-columns: repeat(3, 1fr); }
+  .facets { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .principles { grid-template-columns: repeat(2, 1fr); column-gap: 1.5rem; }
-  .role { grid-template-columns: 7.5rem 1fr 5.5rem; }
+  .role { grid-template-columns: 7rem 1fr 7rem; }
   .role .when { text-align: right; }
-  .case summary { grid-template-columns: 2.2rem 1fr 5.5rem; }
-  .case .org { display: block; }
+  .role .degrees { grid-column: 2; }
+  .case summary { grid-template-columns: 2.2rem 1fr 9.5rem; }
+  .case .num { grid-area: auto; }
+  .case summary h3 { grid-area: auto; }
+  .case .stat { grid-area: auto; text-align: right; }
   .case-body { grid-template-columns: 2.2rem 1fr; }
 
   .block > .label {
+    position: static;
     padding: 0 0 0.2rem;
     border: 0;
     font-size: 7.5pt;
@@ -690,11 +748,16 @@ h2 em { font-style: italic; color: var(--clay); }
   .label .idx { display: none; }
   .label .nm { display: inline; }
 
-  .block > .content { padding: 0 0 0.85rem; }
+  .block > .content { padding: 0 0 0.6rem; }
   .hero > .content { padding: 0 0 0.7rem; }
   .masthead > .content { padding: 0 0 0.5rem; display: block; }
   .masthead > .label { padding: 0; font-size: 15pt; letter-spacing: 0.04em; }
   .masthead > .content span + span::before { content: " · "; }
+
+  /* These are all 0.99rem on screen, which is a size the printed body no longer
+     uses — left alone they set a fifth larger than the prose around them. */
+  .spec dd, .facets dd, .toolkit dd, .role .title, .role .degrees,
+  .principles p, .case-body p, .figure-src { font-size: inherit; }
 
   h1 { font-size: 15pt; max-width: none; }
   h2 { font-size: 12pt; margin-bottom: 0.3rem; }
@@ -703,19 +766,32 @@ h2 em { font-style: italic; color: var(--clay); }
   .lede { font-size: 12pt; }
   .spec { margin-top: 0.7rem; }
 
-  /* Collapsed <details> hide their contents through the UA stylesheet, which a
-     print run has no way to click open. */
+  /* A collapsed <details> hides its contents through the UA stylesheet, and a
+     print run has no way to click one open. The script opens them all before
+     the dialog appears; these are the fallback for scripting-off readers.
+     Chrome now hides the contents with content-visibility on a pseudo-element
+     rather than display, so overriding display alone silently prints five of
+     the six cases as bare titles. */
   .case > .case-body { display: grid !important; }
-  .case summary { padding: 0.35rem 0 0.15rem; cursor: auto; }
-  .case-body { padding-bottom: 0.5rem; }
-  .metric { border: 0; padding: 0; margin-top: 0.35rem !important; font-weight: 500; }
+  .case::details-content { content-visibility: visible !important; }
+  .case summary { padding: 0.3rem 0 0.1rem; cursor: auto; }
+  .case-body { padding-bottom: 0.3rem; }
+  /* Runs in at the head of the paragraph rather than taking a line of its own:
+     six provenance lines is most of the page that separates two sheets from
+     three. */
+  .case-body .where {
+    float: left;
+    margin: 0 0.55rem 0 0;
+    font-size: 7.5pt;
+    letter-spacing: 0.1em;
+  }
 
   .figures, .facets, .principles { gap: 0 1.2rem; }
-  .figures > div { padding: 0.5rem 0.8rem 0.4rem 0; }
+  .figures > div { padding: 0.4rem 0.8rem 0.3rem 0; }
   .figure { font-size: 14pt; }
 
-  .role { padding: 0.32rem 0; }
-  .roles { margin-top: 0.5rem; }
+  .role { padding: 0.26rem 0; }
+  .roles { margin-top: 0.3rem; }
 
   a { text-decoration: none; box-shadow: none !important; }
 
@@ -724,8 +800,9 @@ h2 em { font-style: italic; color: var(--clay); }
   }
   h1, h2, .label { break-after: avoid; }
 
-  /* Dropped on paper: the convictions are positioning for a browsing reader,
-     and the contact block is a button nobody can press. Losing them is what
-     keeps this to two pages. */
-  #method, #contact { display: none; }
+  /* Dropped on paper. All three are positioning written for someone browsing:
+     the profile restates the opening paragraph, the convictions are an argument
+     rather than a record, and the contact block is a button nobody can press.
+     Losing them is what keeps six full case studies inside two pages. */
+  #profile, #method, #contact { display: none; }
 }

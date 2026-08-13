@@ -49,16 +49,17 @@
     [grid, 'left', 0],
     [grid, 'right', 0],
     [grid, 'bottom', 0],
-    [document.querySelector('.masthead > .label'), 'right', 0],
+    [document.querySelector('.masthead > .content'), 'left', 0],
   ];
 
   for (const block of document.querySelectorAll('.block')) {
     specs.push([block, 'top', 0]);
-    const label = block.querySelector(':scope > .label');
-    /* Beside its content a label divides vertically; stacked above it, the same
-       rule is a bottom border in the softer tier. Only one of the pair ever
-       carries a width, and measuring is what decides which. */
-    specs.push([label, 'right', 0], [label, 'bottom', 1]);
+    /* Beside its label the content carries the dividing rule on its left edge;
+       stacked below the label, the same rule is the label's bottom border in
+       the softer tier. Only one of the pair ever carries a width, and
+       measuring is what decides which. */
+    specs.push([block.querySelector(':scope > .content'), 'left', 0]);
+    specs.push([block.querySelector(':scope > .label'), 'bottom', 1]);
   }
 
   const lines = [];

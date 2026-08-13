@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <title>Ashlee Hon</title>
+  <rect width="64" height="64" fill="#b5522f"/>
+  <!-- The label column and a section rule, which is the whole page in miniature.
+       Drawn rather than set in type: a monogram at 16px is a smudge, and a
+       favicon cannot rely on the renderer having the typeface. -->
+  <g fill="#fdf6ec">
+    <rect x="18" y="0" width="3" height="64"/>
+    <rect x="0" y="24" width="64" height="3"/>
+  </g>
+</svg>

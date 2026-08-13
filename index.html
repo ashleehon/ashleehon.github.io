@@ -7,16 +7,34 @@
 <meta name="description" content="Product manager with ten years building the forecasting, pricing, and reporting systems that Disney+, Hulu, and ESPN+ plan their advertising against.">
 <meta name="author" content="Ashlee Hon">
 
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+
 <meta property="og:type" content="profile">
 <meta property="og:title" content="Ashlee Hon — Product Manager">
 <meta property="og:description" content="Ten years building the forecasting, pricing, and reporting systems that Disney+, Hulu, and ESPN+ plan their advertising against.">
 <meta property="og:url" content="https://ashleehon.github.io/">
+<meta property="og:image" content="https://ashleehon.github.io/og.png">
+<meta property="og:image:alt" content="Complex data, turned into products people trust — Ashlee Hon, Product Manager">
+<meta name="twitter:card" content="summary_large_image">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Ashlee Hon",
+  "url": "https://ashleehon.github.io/",
+  "jobTitle": "Product Manager",
+  "address": { "@type": "PostalAddress", "addressLocality": "New York", "addressRegion": "NY" },
+  "alumniOf": { "@type": "CollegeOrUniversity", "name": "University of Pennsylvania" },
+  "sameAs": ["https://www.linkedin.com/in/ashleehon/"]
+}
+</script>
 
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<a class="skip" href="#index">Skip to content</a>
+<a class="skip" href="#intro">Skip to content</a>
 
 <div class="grid">
 
@@ -30,8 +48,8 @@
 
   <main>
 
-  <section class="block hero" id="index">
-    <p class="label mono"><span class="idx">00</span><span class="nm">Index</span></p>
+  <section class="block hero" id="intro">
+    <p class="label mono"><span class="idx">00</span><span class="nm">Intro</span></p>
     <div class="content">
       <h1>Complex data, turned into products <em>people trust</em></h1>
       <p class="standfirst">I&rsquo;m a product manager in New York. For ten years I&rsquo;ve shaped the
@@ -39,20 +57,16 @@
         advertising against — and lately, a product of my own.</p>
       <dl class="spec">
         <div>
-          <dt>Discipline</dt>
-          <dd>Product management — growth, monetization, retention</dd>
-        </div>
-        <div>
           <dt>Domain</dt>
           <dd>Streaming advertising, forecasting, subscription</dd>
         </div>
         <div>
-          <dt>Based</dt>
-          <dd>New York, NY</dd>
-        </div>
-        <div>
           <dt>Reach me</dt>
           <dd><a class="lnk" href="https://www.linkedin.com/in/ashleehon/">linkedin.com/in/ashleehon</a></dd>
+        </div>
+        <div class="cv-row">
+          <dt>CV</dt>
+          <dd><button class="lnk print" type="button" data-print>Print or save as a two-page PDF</button></dd>
         </div>
       </dl>
     </div>
@@ -128,23 +142,23 @@
     <p class="label mono"><span class="idx">03</span><span class="nm">Work</span></p>
     <div class="content">
       <h2>What this looks like in practice</h2>
-      <p class="deck">Six problems I was handed, and what came out the other side.</p>
+      <p class="deck">Six problems, and what came out the other side.</p>
 
       <div class="cases">
         <details class="case" open>
           <summary>
             <span class="num mono">001</span>
             <h3>A spreadsheet ritual, turned into a product</h3>
-            <span class="org mono">Disney</span>
+            <span class="stat mono">Planning cycle <b>&minus;30%</b></span>
             <span class="plus" aria-hidden="true"></span>
           </summary>
           <div class="case-body">
             <span></span>
             <div>
+              <p class="where mono">Disney &middot; Ad forecasting</p>
               <p>Ad inventory planning ran on spreadsheets and tribal knowledge, so the answer
                 depended on who you asked. I led development of a forecasting product that made
                 planning reproducible and became the basis for how inventory gets monetized.</p>
-              <p class="metric mono">Planning cycle <b>&minus;30%</b></p>
             </div>
           </div>
         </details>
@@ -152,18 +166,18 @@
         <details class="case">
           <summary>
             <span class="num mono">002</span>
-            <h3>Teaching the forecast to behave like the ad server</h3>
-            <span class="org mono">Disney</span>
+            <h3>A mobile app for people with clay on their hands</h3>
+            <span class="stat mono">Zero to one <b>in build</b></span>
             <span class="plus" aria-hidden="true"></span>
           </summary>
           <div class="case-body">
             <span></span>
             <div>
-              <p>Models fit to historical curves looked excellent in a backtest and under-delivered
-                in production. I spearheaded a proprietary model that mirrors how ad serving actually
-                behaves instead of averaging what it did before, which cut the under-delivery we had
-                to make good on.</p>
-              <p class="metric mono">Accuracy <b>+11%</b></p>
+              <p class="where mono">Independent &middot; Founder</p>
+              <p>My own product, built from nothing: a workshop journal for ceramists, with a project
+                log, a pricing calculator that accounts for what a firing actually costs, and a
+                forum for trading glaze recipes. The roadmap is organized around retention and word
+                of mouth, because for a niche audience nothing else compounds.</p>
             </div>
           </div>
         </details>
@@ -171,17 +185,18 @@
         <details class="case">
           <summary>
             <span class="num mono">003</span>
-            <h3>Two hundred vendor feeds, one pipeline</h3>
-            <span class="org mono">Disney</span>
+            <h3>Teaching the forecast to behave like the ad server</h3>
+            <span class="stat mono">Accuracy <b>+11%</b></span>
             <span class="plus" aria-hidden="true"></span>
           </summary>
           <div class="case-body">
             <span></span>
             <div>
-              <p>Reporting depended on a sprawl of vendor exports that no two teams reconciled the
-                same way. I launched the third-party platform STAQ with more than 200 API connections
-                behind it, which left one number everyone could point at.</p>
-              <p class="metric mono">Annual cost <b>&minus;42%</b></p>
+              <p class="where mono">Disney &middot; Delivery modelling</p>
+              <p>Models fit to historical curves looked excellent in a backtest and under-delivered
+                in production. I spearheaded a proprietary model that mirrors how ad serving actually
+                behaves instead of averaging what it did before, which cut the under-delivery we had
+                to make good on.</p>
             </div>
           </div>
         </details>
@@ -189,18 +204,17 @@
         <details class="case">
           <summary>
             <span class="num mono">004</span>
-            <h3>Launching Disney+ in two hemispheres</h3>
-            <span class="org mono">Disney</span>
+            <h3>Two hundred vendor feeds, one pipeline</h3>
+            <span class="stat mono">Annual cost <b>&minus;42%</b></span>
             <span class="plus" aria-hidden="true"></span>
           </summary>
           <div class="case-body">
             <span></span>
             <div>
-              <p>The LATAM and ANZ launches needed working reporting on day one, not in the quarter
-                after. I managed the data pipelines underneath them, which is what made funnel
-                optimization and global reporting possible across the Direct and Programmatic
-                businesses.</p>
-              <p class="metric mono">Two regions <b>live at launch</b></p>
+              <p class="where mono">Disney &middot; Reporting</p>
+              <p>Reporting depended on a sprawl of vendor exports that no two teams reconciled the
+                same way. I launched the third-party platform STAQ with more than 200 API connections
+                behind it, which left one number everyone could point at.</p>
             </div>
           </div>
         </details>
@@ -208,18 +222,18 @@
         <details class="case">
           <summary>
             <span class="num mono">005</span>
-            <h3>The churn hiding in the billing logic</h3>
-            <span class="org mono">Disney</span>
+            <h3>Launching Disney+ in two hemispheres</h3>
+            <span class="stat mono">Reporting <b>live at launch</b></span>
             <span class="plus" aria-hidden="true"></span>
           </summary>
           <div class="case-body">
             <span></span>
             <div>
-              <p>Subscribers who bought more than one Disney service were being double- and
-                split-billed, and they were leaving over it. I worked with engineering and finance to
-                trace and resolve it, then dug into Verizon upgrade and downgrade behavior in a way
-                that changed both campaign strategy and which partnerships were worth renewing.</p>
-              <p class="metric mono">Billing churn <b>resolved</b></p>
+              <p class="where mono">Disney &middot; LATAM and ANZ</p>
+              <p>The LATAM and ANZ launches needed working reporting on day one, not in the quarter
+                after. I managed the data pipelines underneath them, which is what made funnel
+                optimization and global reporting possible across the Direct and Programmatic
+                businesses.</p>
             </div>
           </div>
         </details>
@@ -227,18 +241,18 @@
         <details class="case">
           <summary>
             <span class="num mono">006</span>
-            <h3>A workshop journal for people with clay on their hands</h3>
-            <span class="org mono">Founder</span>
+            <h3>The churn hiding in the billing logic</h3>
+            <span class="stat mono">Billing churn <b>resolved</b></span>
             <span class="plus" aria-hidden="true"></span>
           </summary>
           <div class="case-body">
             <span></span>
             <div>
-              <p>My own product, built from nothing: a mobile app for ceramists, with a project
-                journal, a pricing calculator that accounts for what a firing actually costs, and a
-                forum for trading glaze recipes. The roadmap is organized around retention and word
-                of mouth, because for a niche audience nothing else compounds.</p>
-              <p class="metric mono">Zero to one <b>in progress</b></p>
+              <p class="where mono">Disney &middot; Subscription</p>
+              <p>Subscribers who bought more than one Disney service were being double- and
+                split-billed, and they were leaving over it. I worked with engineering and finance to
+                trace and resolve it, then dug into Verizon upgrade and downgrade behavior in a way
+                that changed both campaign strategy and which partnerships were worth renewing.</p>
             </div>
           </div>
         </details>
@@ -307,7 +321,7 @@
           <dd>A/B testing · SQL · Python · Looker and LookML · Tableau</dd>
         </div>
         <div>
-          <dt>Craft</dt>
+          <dt>Software &amp; AI</dt>
           <dd>Figma · Lucidchart · Jira and Confluence · Cursor · Claude · Gemini</dd>
         </div>
       </dl>
@@ -322,53 +336,78 @@
         <div class="role">
           <span class="org">Independent</span>
           <span class="title">Founder &amp; Product Manager</span>
-          <span class="when mono">2025&mdash;</span>
+          <span class="when mono">2025&ndash;present</span>
         </div>
         <div class="role">
           <span class="org">Disney</span>
           <span class="title">Senior Product Manager, Forecasting &amp; BI Automation</span>
-          <span class="when mono">2021&mdash;</span>
+          <span class="when mono">2021&ndash;present</span>
         </div>
         <div class="role">
           <span class="org">Disney</span>
           <span class="title">Data Analyst, Product Analytics</span>
-          <span class="when mono">2020&ndash;21</span>
+          <span class="when mono">2020&ndash;2021</span>
         </div>
         <div class="role">
           <span class="org">Wunderkind</span>
           <span class="title">Senior Data &amp; Product Analytics Manager, Ads</span>
-          <span class="when mono">2018&ndash;20</span>
+          <span class="when mono">2018&ndash;2020</span>
         </div>
         <div class="role">
           <span class="org">Bloomberg</span>
           <span class="title">Analyst</span>
-          <span class="when mono">2016&ndash;18</span>
+          <span class="when mono">2016&ndash;2018</span>
         </div>
         <div class="role">
           <span class="org">AOL</span>
           <span class="title">Associate Business Analyst</span>
-          <span class="when mono">2014&ndash;16</span>
+          <span class="when mono">2014&ndash;2016</span>
         </div>
         <div class="role">
-          <span class="org">Pennsylvania</span>
-          <span class="title">BA Economics &amp; BA Communications</span>
-          <span class="when mono">University</span>
+          <span class="org">Education</span>
+          <span class="title">University of Pennsylvania</span>
+          <span class="degrees">BA Economics &amp; BA Communications</span>
         </div>
       </div>
     </div>
   </section>
 
-  </main>
-
   <section class="block outro" id="contact">
     <p class="label mono"><span class="idx">07</span><span class="nm">Contact</span></p>
     <div class="content">
-      <h2>If one of these is a problem you have, <em>let&rsquo;s talk</em></h2>
+      <h2>If you want to learn more, <em>let&rsquo;s talk</em></h2>
       <a class="btn" href="https://www.linkedin.com/in/ashleehon/">Connect on LinkedIn&nbsp;&rarr;</a>
     </div>
   </section>
 
+  </main>
+
 </div>
+
+<script>
+/* The CV is this page, printed. Nothing but a browser can be asked to do that,
+   so the control is revealed only once this has run and wired it up. */
+document.documentElement.classList.add('js-print');
+for (const el of document.querySelectorAll('[data-print]')) {
+  el.addEventListener('click', () => window.print());
+}
+
+/* Every case study has to be open on paper, or the CV prints as a list of
+   titles. Opening them for the duration of the print is more reliable than
+   fighting the user agent's stylesheet for a collapsed <details>. */
+addEventListener('beforeprint', () => {
+  for (const d of document.querySelectorAll('details:not([open])')) {
+    d.dataset.reopen = '';
+    d.open = true;
+  }
+});
+addEventListener('afterprint', () => {
+  for (const d of document.querySelectorAll('details[data-reopen]')) {
+    delete d.dataset.reopen;
+    d.open = false;
+  }
+});
+</script>
 
 <!-- Decoration only: it bends the grid's rules under the cursor. The page is
      complete without it, and it declines to run on touch or reduced motion. -->

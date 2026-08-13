@@ -9,7 +9,9 @@ files and push; the site updates in a minute or two.
 index.html   the whole site, one scrolling page
 style.css    styles: light, dark, and print
 wobble.js    decoration: bends the grid's rules under the cursor
-fonts/       self-hosted woff2 (Fraunces, Karla, IBM Plex Mono)
+favicon.svg  the label column and a section rule, which is the page in miniature
+og.png       the share card, rendered from the page's own hero (see below)
+fonts/       self-hosted woff2 (Fraunces, IBM Plex Sans, IBM Plex Mono)
 ```
 
 ## How the page is built
@@ -19,8 +21,14 @@ it, then work as named case studies that expand. Sections are numbered `00`–`0
 down the left, and each block draws its own two columns at matching widths rather than inheriting a
 CSS subgrid, so the rules stay aligned without depending on subgrid support.
 
-Case studies are `<details>` elements, with no JavaScript involved, which is why they still expand
-with scripting off and still open when printed.
+The label sticks to the top of the window for as long as its section lasts, so the numbering says
+where you are rather than just counting. That is why the rule between the two columns is the
+content's left border and not the label's right one: a sticky element shrinks to its own height and
+would drag a full-height border up the page with it.
+
+Case studies are `<details>` elements, so they expand with scripting off. What a closed one shows is
+the outcome, not the employer — five of the six are shut on arrival, so that line is all most
+readers will see.
 
 ## The wobbling rules
 
@@ -37,9 +45,22 @@ every border colour it might have read is already transparent.
 
 ## Fonts are self-hosted
 
-They are served from `fonts/`, not a CDN. A third-party font host sees every visitor's IP and
-referrer and adds a connection before any text can paint. If you add a weight, download the woff2
-and add an `@font-face`; don't reach for a `<link>` to Google.
+Fraunces for display, IBM Plex Sans for text, IBM Plex Mono for the labels — two families rather
+than three, since the last two are one superfamily. They are served from `fonts/`, not a CDN: a
+third-party font host sees every visitor's IP and referrer and adds a connection before any text can
+paint. If you add a weight, download the woff2 and add an `@font-face`; don't reach for a `<link>`
+to Google. Both Plex files are variable, so one file covers each family's whole weight range.
+
+## The share card
+
+`og.png` is 1200×630, rendered from this page's own hero so it cannot drift from the design. To
+regenerate after an edit, screenshot the top of the page at 1200×630 and, rather than letting the
+crop fall mid-row, cut at an empty row and repeat that row down to the full height:
+
+```bash
+chrome --headless=new --force-device-scale-factor=2 --window-size=1200,630 \
+  --screenshot=/tmp/og-raw.png file://$PWD/index.html
+```
 
 ## This repository is public
 
@@ -49,14 +70,24 @@ history after being deleted. Keep them out. Contact is LinkedIn only, deliberate
 
 ## Printing
 
-Cmd-P gives a two-page CV: black on white regardless of dark mode, every case study forced open
-(collapsed `<details>` would otherwise print empty), and no entry split across a page break.
+The CV is this page printed, not a PDF sitting in the repo that goes stale the first time the page
+is edited. Cmd-P gives two pages, and the `CV` row in the opening spec sheet is a button that calls
+`window.print()` — hidden until the script that wires it runs, so nobody is offered a control that
+cannot work.
 
-Two things to know if you edit the print rules. A letter page is about 51rem wide, so the narrow
-screen breakpoint matches when printing and collapses every grid to one column unless the print
-block puts the columns back — that alone is the difference between two pages and five. And the
-Method and Contact sections are hidden on paper: convictions are for a browsing reader, and a button
-is useless in print.
+Four things to know if you edit the print rules, each of which fails quietly rather than loudly.
+
+- A letter page is about 51rem wide, so the narrow-screen breakpoint matches when printing and
+  collapses every grid to one column unless the print block puts the columns back. That alone is the
+  difference between two pages and five.
+- Chrome now hides a closed `<details>` with `content-visibility` on a pseudo-element rather than
+  `display`, so overriding `display` prints five of the six cases as bare titles and looks fine at a
+  glance. The inline script opens them all on `beforeprint` and shuts them again after; the CSS is
+  only the fallback for scripting off.
+- Profile, Method, and Contact are dropped on paper. All three are positioning written for someone
+  browsing, and losing them is what fits six full case studies into two pages.
+- Fitting is tight enough that a body font change moves the page count. Check it: the fit is
+  currently about a third of a page of slack.
 
 ## Local preview
 
