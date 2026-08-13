@@ -340,19 +340,27 @@ h1 em {
 }
 .lnk:hover { box-shadow: inset 0 -2px 0 currentColor; }
 
+/* A <button class="lnk"> keeps the underline link look; only the element type
+   changes so window.print() has something honest to attach to. */
+button.lnk {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  letter-spacing: inherit;
+  text-align: inherit;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
 /* The CV is this page's print stylesheet rather than a file sitting in the
    repo, so the control is a button that asks the browser to print. It stays
    hidden until the script that wires it runs — nobody should be offered a
    button that cannot do anything. */
 .print { display: none; }
-html.js-print .print {
-  display: inline;
-  padding: 0;
-  border: 0;
-  background: none;
-  font: inherit;
-  cursor: pointer;
-}
+html.js-print .print { display: inline; }
 
 /* ---------- shared headings ---------- */
 
@@ -587,13 +595,8 @@ h2 em { font-style: italic; color: var(--clay); }
   letter-spacing: 0.06em;
   font-variant-numeric: tabular-nums;
 }
-/* The education row runs school over degrees, and carries no dates: the years
-   a degree took are the least interesting fact in this table. */
-.role .degrees {
-  grid-column: 2;
-  font-size: 0.93rem;
-  color: var(--ink-faint);
-}
+
+.title .degrees { color: var(--ink-faint); }
 
 /* ---------- contact ---------- */
 
@@ -650,7 +653,6 @@ h2 em { font-style: italic; color: var(--clay); }
 
   .spec div, .toolkit div, .role { grid-template-columns: 1fr; }
   .role .when { text-align: left; }
-  .role .degrees { grid-column: 1; }
 
   /* No room for the outcome beside the title, and it is too much of the point
      to drop, so it takes its own line under it. */
@@ -730,7 +732,6 @@ h2 em { font-style: italic; color: var(--clay); }
   .principles { grid-template-columns: repeat(2, 1fr); column-gap: 1.5rem; }
   .role { grid-template-columns: 7rem 1fr 7rem; }
   .role .when { text-align: right; }
-  .role .degrees { grid-column: 2; }
   .case summary { grid-template-columns: 2.2rem 1fr 9.5rem; }
   .case .num { grid-area: auto; }
   .case summary h3 { grid-area: auto; }
