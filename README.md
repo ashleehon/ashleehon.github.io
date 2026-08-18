@@ -17,8 +17,9 @@ fonts/       self-hosted woff2 (Fraunces, IBM Plex Sans, IBM Plex Mono)
 ## How the page is built
 
 It reads as a positioning page rather than a transcribed résumé: a claim up top, the numbers behind
-it, then work as named case studies that expand. Sections are numbered `00`–`07` in a label column
-down the left, and each block draws its own two columns at matching widths rather than inheriting a
+it, then work as named case studies that expand. A fourth block covers what shipped
+when engineering wasn't scheduled — built with AI tooling. Sections are numbered
+`00`–`08` in a label column down the left, and each block draws its own two columns at matching widths rather than inheriting a
 CSS subgrid, so the rules stay aligned without depending on subgrid support.
 
 The label sticks to the top of the window for as long as its section lasts, so the numbering says
@@ -84,8 +85,9 @@ Four things to know if you edit the print rules, each of which fails quietly rat
   `display`, so overriding `display` prints five of the six cases as bare titles and looks fine at a
   glance. The inline script opens them all on `beforeprint` and shuts them again after; the CSS is
   only the fallback for scripting off.
-- Profile, Method, and Contact are dropped on paper. All three are positioning written for someone
-  browsing, and losing them is what fits six full case studies into two pages.
+- Profile, AI builds, Method, and Contact are dropped on paper. All four are positioning
+  written for someone browsing, and losing them is what fits six full case studies into
+  two pages.
 - Fitting is tight enough that a body font change moves the page count. Check it: the fit is
   currently about a third of a page of slack.
 

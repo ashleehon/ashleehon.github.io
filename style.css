@@ -801,9 +801,10 @@ h2 em { font-style: italic; color: var(--clay); }
   }
   h1, h2, .label { break-after: avoid; }
 
-  /* Dropped on paper. All three are positioning written for someone browsing:
-     the profile restates the opening paragraph, the convictions are an argument
-     rather than a record, and the contact block is a button nobody can press.
-     Losing them is what keeps six full case studies inside two pages. */
-  #profile, #method, #contact { display: none; }
+  /* Dropped on paper. All four are positioning written for someone browsing:
+     profile restates the opening paragraph, AI builds and convictions are
+     arguments rather than record, and the contact block is a button nobody
+     can press. Losing them is what keeps six full case studies inside two
+     pages. */
+  #profile, #ai-builds, #method, #contact { display: none; }
 }
