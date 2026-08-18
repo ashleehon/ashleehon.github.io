@@ -126,6 +126,7 @@
   --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
 
   --gutter: 10rem;
+  --site-head: 5.5rem;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -221,41 +222,18 @@ a { color: inherit; }
    full-height border with it. */
 .block > .label {
   position: sticky;
-  top: 0;
+  top: var(--site-head);
   align-self: start;
   margin: 0;
   padding: 2.4rem 1.25rem;
 }
 
+.block[id] { scroll-margin-top: calc(var(--site-head) + 0.75rem); }
+.case[id] { scroll-margin-top: calc(var(--site-head) + 0.75rem); }
+
 /* ---------------------------------------------------------------------------
-   Wobbling rules. Every line here is a real border, so it survives print, a
-   failed script and a reader who has switched JavaScript off. wobble.js then
-   hides these borders — colour only, so the 1px they occupy still holds the
-   layout in place — and redraws the same geometry as SVG paths it can bend
-   under the cursor. Nothing below is load-bearing for the flat state.
+   Wobbling rules removed — borders stay visible CSS at rest.
    --------------------------------------------------------------------------- */
-
-.wobble-layer {
-  position: absolute;
-  inset: 0;
-  overflow: visible;
-  pointer-events: none;
-}
-.wobble-layer path {
-  fill: none;
-  stroke: var(--rule);
-  stroke-width: 1;
-}
-.wobble-layer path.soft { stroke: var(--rule-soft); }
-
-/* Screen only: print wants the borders back, and the overlay gone. */
-@media screen {
-  html.js-lines .grid,
-  html.js-lines .block,
-  html.js-lines .block > .label,
-  html.js-lines .block > .content,
-  html.js-lines .masthead { border-color: transparent; }
-}
 
 .block > .content {
   min-width: 0;
@@ -269,9 +247,18 @@ a { color: inherit; }
 /* ---------- dateline masthead ---------- */
 
 .masthead {
-  display: block;
+  display: grid;
+  grid-template-columns: var(--gutter) 1fr;
+  position: sticky;
+  top: 0;
+  z-index: 20;
   border-bottom: 1px solid var(--rule);
-  background: var(--paper-lift);
+  background: var(--paper);
+}
+
+.masthead-stack {
+  min-width: 0;
+  border-left: 1px solid var(--rule);
 }
 
 .dateline {
@@ -279,10 +266,57 @@ a { color: inherit; }
   flex-wrap: wrap;
   align-items: baseline;
   justify-content: space-between;
-  gap: 0.35rem 1.25rem;
+  gap: 0.4rem 1.25rem;
   margin: 0;
-  padding: 0.85rem 2.75rem;
+  padding: 1.1rem 2.75rem;
+  background: var(--paper-deep);
+  min-width: 0;
 }
+
+.section-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.2rem 0.45rem;
+  margin: 0;
+  padding: 0.55rem 2.75rem 0.6rem;
+  border-top: 1px solid var(--rule-soft);
+  background: var(--paper-lift);
+  font-size: 0.62rem;
+  line-height: 1.5;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.section-nav a {
+  color: var(--ink-faint);
+  text-decoration: none;
+}
+.section-nav a:hover,
+.section-nav a.is-here {
+  color: var(--clay);
+  text-decoration: none;
+}
+.section-nav a.is-here { font-weight: 500; }
+.nav-sep { color: var(--rule); user-select: none; }
+
+.nav-cv {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  color: var(--ink-faint);
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+}
+.nav-cv:hover { color: var(--clay); }
 
 .dateline-who,
 .dateline-where {
@@ -308,15 +342,10 @@ a { color: inherit; }
 
 /* ---------- hero ---------- */
 
-.hero-kicker {
-  display: none;
-  margin: 0 0 0.65rem;
-  color: var(--clay);
-  font-weight: 500;
-  letter-spacing: 0.12em;
-}
+.hero { border-top: 0; }
+.hero > .content { padding-top: 2.4rem; padding-bottom: 4.5rem; }
 
-.hero > .content { padding-top: 3.25rem; padding-bottom: 5.5rem; }
+.hero .spec { margin-top: 3rem; }
 
 h1 {
   margin: 0;
@@ -412,10 +441,47 @@ h2 em { font-style: italic; color: var(--clay); }
 
 /* ---------- figures ---------- */
 
+#figures > .content {
+  background: linear-gradient(180deg, var(--paper-deep) 0%, var(--paper) 14rem);
+}
+
+.figure-groups { margin: 0; }
+
+.figure-group + .figure-group {
+  margin-top: 2rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid var(--rule-soft);
+}
+
+.figure-group-label {
+  margin: 0 0 0.85rem;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
 .figures {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   border-top: 1px solid var(--rule-soft);
+}
+.figures-4 { grid-template-columns: repeat(2, 1fr); }
+.figures-2 { grid-template-columns: repeat(2, 1fr); max-width: 36rem; }
+.figures-4 > div:nth-child(2n+1) { padding-left: 0; border-left: 0; }
+.figures-2 > div:first-child { padding-left: 0; border-left: 0; }
+
+.figure-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  transition: opacity 0.15s;
+}
+.figure-link:hover { opacity: 0.82; }
+.figure-link:hover .figure { color: var(--clay); }
+.figure-link:focus-visible {
+  outline: 2px solid var(--clay);
+  outline-offset: 4px;
 }
 .figures > div {
   padding: 1.7rem 1.5rem 1.6rem 0;
@@ -440,8 +506,9 @@ h2 em { font-style: italic; color: var(--clay); }
   font-variant-numeric: tabular-nums;
   color: var(--clay);
 }
-/* Alternating for rhythm only — the six figures are equal in weight. */
-.figures > div:nth-child(even) .figure { color: var(--green); }
+.figure-muted { color: var(--green); }
+/* Prior-role figures use celadon; Disney figures stay clay. */
+.figures > div:nth-child(even) .figure:not(.figure-muted) { color: var(--clay); }
 .figure-label {
   display: block;
   margin-top: 0.7rem;
@@ -455,32 +522,6 @@ h2 em { font-style: italic; color: var(--clay); }
   font-size: 0.88rem;
   color: var(--ink-faint);
 }
-
-/* ---------- profile ---------- */
-
-/* Sized as an h2 because that is what it is. Peer headings set at three
-   different sizes read as a hierarchy that the page does not actually have. */
-.lede {
-  margin: 0 0 0.7rem;
-  max-width: 30ch;
-}
-
-.facets {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
-  margin: 0;
-  padding-top: 1.6rem;
-  border-top: 1px solid var(--rule-soft);
-}
-.facets dt {
-  margin-bottom: 0.5rem;
-  font: 400 0.7rem/1.4 var(--mono);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--clay);
-}
-.facets dd { margin: 0; font-size: 0.99rem; color: var(--ink-soft); }
 
 /* ---------- case studies ---------- */
 
@@ -605,6 +646,18 @@ h2 em { font-style: italic; color: var(--clay); }
   color: var(--ink-soft);
 }
 
+.toolkit-head {
+  margin: 2.75rem 0 0.25rem;
+  font-family: var(--display);
+  font-size: clamp(1.35rem, 2.2vw, 1.65rem);
+  font-weight: 400;
+  font-variation-settings: "SOFT" 25;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+}
+
+#approach .toolkit { margin-top: 0.5rem; }
+
 /* ---------- record ---------- */
 
 .roles { margin-top: 2.25rem; }
@@ -650,53 +703,52 @@ h2 em { font-style: italic; color: var(--clay); }
 /* ---------- narrow screens ---------- */
 
 @media (max-width: 56rem) {
-  :root { --gutter: 0; }
+  :root {
+    --gutter: 0;
+    --site-head: 7.25rem;
+  }
 
   body { overflow-x: clip; }
 
-  .masthead,
-  .block { grid-template-columns: 1fr; }
+  .masthead {
+    display: block;
+  }
+
+  .masthead-stack { border-left: 0; }
 
   .dateline {
     flex-direction: column;
     align-items: flex-start;
-    gap: 0.35rem;
-    padding: 0.75rem 1.25rem;
+    gap: 0.4rem;
+    padding: 1rem 1.25rem 1.1rem;
   }
 
-  /* Stacked above its content, the label is a bar rather than a column, so it
-     stops sticking — a bar pinned to the top of a phone screen would cover the
-     words underneath, and the drawn rules are measured where they sit. */
-  .block > .label {
-    position: static;
-    display: flex;
-    gap: 0.9rem;
-    padding: 1.1rem 1.5rem;
-    border-bottom: 1px solid var(--rule-soft);
+  .section-nav {
+    padding: 0.55rem 1.25rem 0.65rem;
+    gap: 0.2rem 0.35rem;
+    font-size: 0.56rem;
   }
-  .label .idx, .label .nm { display: inline; margin: 0; }
 
-  /* The dividing rule turns the corner with the label. Nothing divides the
-     masthead once its two halves are stacked. */
+  .block { grid-template-columns: 1fr; }
+
+  /* Wayfinding is the sticky nav; section label bars add noise on small screens. */
+  .block > .label { display: none; }
+
   .block > .content { border-left: 0; }
 
   .block > .content { padding: 2rem 1.25rem 2.75rem; }
 
-  .hero { border-top: 0; }
-  .hero > .label { display: none; }
-  .hero-kicker { display: block; }
   .hero > .content {
-    padding-top: 1.35rem;
-    padding-bottom: 2.5rem;
+    padding-top: 1.75rem;
+    padding-bottom: 2.75rem;
   }
+
+  .figures, .figures-4, .figures-2 { grid-template-columns: 1fr; }
+  .figures > div + div { padding-left: 0; border-left: 0; }
+  .figures > div { padding-right: 0; }
 
   h1 { max-width: none; font-size: clamp(2rem, 9vw, 2.6rem); }
   .standfirst { margin-top: 1.35rem; font-size: 1.05rem; }
-  .lede { max-width: none; }
-
-  .figures, .facets, .principles { grid-template-columns: 1fr; }
-  .figures > div + div { padding-left: 0; border-left: 0; }
-  .figures > div { padding-right: 0; }
 
   .spec div, .toolkit div, .role { grid-template-columns: 1fr; }
   .spec div { gap: 0.15rem; padding: 0.75rem 0; }
@@ -767,10 +819,7 @@ h2 em { font-style: italic; color: var(--clay); }
   body { font-size: 9.6pt; line-height: 1.34; }
 
   /* The CV row is the button that started this print. */
-  .skip, .btn, .plus, .cv-row { display: none !important; }
-
-  /* Paper has no cursor to follow. The borders underneath are still there. */
-  .wobble-layer { display: none; }
+  .skip, .btn, .plus, .cv-row, .section-nav { display: none !important; }
 
   .grid {
     max-width: none;
@@ -785,11 +834,24 @@ h2 em { font-style: italic; color: var(--clay); }
     padding: 0 0 0.45rem;
     display: block;
   }
+  .masthead-stack { display: block; }
   .dateline-who,
   .dateline-where { display: inline; font-size: 7.5pt; letter-spacing: 0.1em; }
   .dateline-where::before { content: " · "; color: #888; }
   .dateline-sep { display: none; }
-  .hero-kicker { display: none !important; }
+
+  #figures > .content { background: none; }
+  .figure-group-label { font-size: 7pt; }
+  .figures-4, .figures-2 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    max-width: none;
+  }
+  .figure-group + .figure-group {
+    margin-top: 0.35rem;
+    padding-top: 0;
+    border-top: 0;
+  }
+  .figure-link { color: inherit; }
 
   /* A letter page is about 51rem wide, so the narrow-screen breakpoint above
      matches when printing and collapses every grid to one column — which is
@@ -800,7 +862,6 @@ h2 em { font-style: italic; color: var(--clay); }
   .figures { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .figures > div + div { padding-left: 0.8rem; border-left: 1px solid var(--rule-soft); }
   .figures > div:nth-child(3n+1) { padding-left: 0; border-left: 0; }
-  .facets { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .principles { grid-template-columns: repeat(2, 1fr); column-gap: 1.5rem; }
   .role { grid-template-columns: 7rem 1fr 7rem; }
   .role .when { text-align: right; }
@@ -826,14 +887,13 @@ h2 em { font-style: italic; color: var(--clay); }
 
   /* These are all 0.99rem on screen, which is a size the printed body no longer
      uses — left alone they set a fifth larger than the prose around them. */
-  .spec dd, .facets dd, .toolkit dd, .role .title, .role .degrees,
+  .spec dd, .toolkit dd, .role .title, .role .degrees,
   .principles p, .case-body p, .figure-src { font-size: inherit; }
 
   h1 { font-size: 15pt; max-width: none; }
   h2 { font-size: 12pt; margin-bottom: 0.3rem; }
   .standfirst { margin-top: 0.5rem; font-size: 10pt; max-width: none; }
   .deck { margin-bottom: 0.6rem; }
-  .lede { font-size: 12pt; }
   .spec { margin-top: 0.7rem; }
 
   /* A collapsed <details> hides its contents through the UA stylesheet, and a
@@ -856,7 +916,7 @@ h2 em { font-style: italic; color: var(--clay); }
     letter-spacing: 0.1em;
   }
 
-  .figures, .facets, .principles { gap: 0 1.2rem; }
+  .figures, .principles { gap: 0 1.2rem; }
   .figures > div { padding: 0.4rem 0.8rem 0.3rem 0; }
   .figure { font-size: 14pt; }
 
@@ -870,10 +930,6 @@ h2 em { font-style: italic; color: var(--clay); }
   }
   h1, h2, .label { break-after: avoid; }
 
-  /* Dropped on paper. All four are positioning written for someone browsing:
-     profile restates the opening paragraph, AI builds and convictions are
-     arguments rather than record, and the contact block is a button nobody
-     can press. Losing them is what keeps six full case studies inside two
-     pages. */
-  #profile, #ai-builds, #method, #contact { display: none; }
+  /* Dropped on paper. Positioning sections and intro facets — kept lean for two pages. */
+  #ai-builds, #contact { display: none; }
 }
