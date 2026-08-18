@@ -249,6 +249,7 @@ a { color: inherit; }
 .masthead {
   display: grid;
   grid-template-columns: var(--gutter) 1fr;
+  grid-template-rows: auto auto;
   position: sticky;
   top: 0;
   z-index: 20;
@@ -256,12 +257,14 @@ a { color: inherit; }
   background: var(--paper);
 }
 
-.masthead-stack {
-  min-width: 0;
-  border-left: 1px solid var(--rule);
+.masthead-gutter {
+  grid-row: 1;
+  background: var(--paper-deep);
 }
 
 .dateline {
+  grid-column: 2;
+  grid-row: 1;
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
@@ -270,22 +273,35 @@ a { color: inherit; }
   margin: 0;
   padding: 1.1rem 2.75rem;
   background: var(--paper-deep);
+  border-left: 1px solid var(--rule);
   min-width: 0;
 }
 
 .section-nav {
+  grid-column: 1 / -1;
+  grid-row: 2;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: center;
-  gap: 0.2rem 0.45rem;
+  gap: 0.55rem;
   margin: 0;
   padding: 0.55rem 2.75rem 0.6rem;
   border-top: 1px solid var(--rule-soft);
   background: var(--paper-lift);
   font-size: 0.62rem;
   line-height: 1.5;
-  letter-spacing: 0.07em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.section-nav::-webkit-scrollbar { display: none; }
+
+.section-nav a,
+.nav-cv {
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .section-nav a {
@@ -298,7 +314,6 @@ a { color: inherit; }
   text-decoration: none;
 }
 .section-nav a.is-here { font-weight: 500; }
-.nav-sep { color: var(--rule); user-select: none; }
 
 .nav-cv {
   margin: 0;
@@ -714,19 +729,21 @@ h2 em { font-style: italic; color: var(--clay); }
     display: block;
   }
 
-  .masthead-stack { border-left: 0; }
+  .masthead-gutter { display: none; }
 
   .dateline {
     flex-direction: column;
     align-items: flex-start;
     gap: 0.4rem;
     padding: 1rem 1.25rem 1.1rem;
+    border-left: 0;
   }
 
   .section-nav {
-    padding: 0.55rem 1.25rem 0.65rem;
-    gap: 0.2rem 0.35rem;
-    font-size: 0.56rem;
+    padding: 0.5rem 1.25rem 0.6rem;
+    gap: 0.5rem;
+    font-size: 0.58rem;
+    letter-spacing: 0.05em;
   }
 
   .block { grid-template-columns: 1fr; }
