@@ -438,7 +438,10 @@ h2 em { font-style: italic; color: var(--clay); }
 }
 .figures-4 { grid-template-columns: repeat(2, 1fr); }
 .figures-4 > div:nth-child(2n+1) { padding-left: 0; border-left: 0; }
-.figures-4 > div:nth-child(even) .figure { color: var(--green); }
+.figures-4 > div:nth-child(1) .figure,
+.figures-4 > div:nth-child(4) .figure { color: var(--clay); }
+.figures-4 > div:nth-child(2) .figure,
+.figures-4 > div:nth-child(3) .figure { color: var(--green); }
 
 .figure-link {
   display: block;
