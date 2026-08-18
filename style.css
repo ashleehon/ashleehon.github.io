@@ -333,6 +333,13 @@ a { color: inherit; }
 }
 .nav-cv:hover { color: var(--clay); }
 
+@media (min-width: 56.01rem) {
+  .section-nav {
+    justify-content: space-between;
+    gap: 0;
+  }
+}
+
 .dateline-who,
 .dateline-where {
   margin: 0;
@@ -360,8 +367,6 @@ a { color: inherit; }
 .hero { border-top: 0; }
 .hero > .content { padding-top: 2.4rem; padding-bottom: 4.5rem; }
 
-.hero .spec { margin-top: 3rem; }
-
 h1 {
   margin: 0;
   max-width: 25ch;
@@ -384,56 +389,6 @@ h1 em {
   font-size: 1.15rem;
   color: var(--ink-soft);
 }
-
-/* a spec sheet, in the manner of a data dictionary */
-
-.spec {
-  margin: 3rem 0 0;
-  max-width: 36rem;
-  border-top: 1px solid var(--rule-soft);
-}
-.spec div {
-  display: grid;
-  grid-template-columns: 8.5rem 1fr;
-  gap: 0.2rem 1.5rem;
-  padding: 0.65rem 0;
-  border-bottom: 1px solid var(--rule-soft);
-}
-.spec dt {
-  font: 400 0.7rem/1.9 var(--mono);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ink-faint);
-}
-.spec dd { margin: 0; font-size: 0.99rem; }
-.lnk {
-  color: var(--clay);
-  text-decoration: none;
-  box-shadow: inset 0 -1px 0 currentColor;
-}
-.lnk:hover { box-shadow: inset 0 -2px 0 currentColor; }
-
-/* A <button class="lnk"> keeps the underline link look; only the element type
-   changes so window.print() has something honest to attach to. */
-button.lnk {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  background: none;
-  font: inherit;
-  letter-spacing: inherit;
-  text-align: inherit;
-  cursor: pointer;
-  appearance: none;
-  -webkit-appearance: none;
-}
-
-/* The CV is this page's print stylesheet rather than a file sitting in the
-   repo, so the control is a button that asks the browser to print. It stays
-   hidden until the script that wires it runs — nobody should be offered a
-   button that cannot do anything. */
-.print { display: none; }
-html.js-print .print { display: inline; }
 
 /* ---------- shared headings ---------- */
 
@@ -740,6 +695,7 @@ h2 em { font-style: italic; color: var(--clay); }
   }
 
   .section-nav {
+    justify-content: flex-start;
     padding: 0.5rem 1.25rem 0.6rem;
     gap: 0.5rem;
     font-size: 0.58rem;
@@ -767,8 +723,7 @@ h2 em { font-style: italic; color: var(--clay); }
   h1 { max-width: none; font-size: clamp(2rem, 9vw, 2.6rem); }
   .standfirst { margin-top: 1.35rem; font-size: 1.05rem; }
 
-  .spec div, .toolkit div, .role { grid-template-columns: 1fr; }
-  .spec div { gap: 0.15rem; padding: 0.75rem 0; }
+  .toolkit div, .role { grid-template-columns: 1fr; }
   .role { gap: 0.2rem; }
   .role .when { text-align: left; }
 
@@ -794,8 +749,6 @@ h2 em { font-style: italic; color: var(--clay); }
     line-height: 1.4;
   }
   .case-body { grid-template-columns: 1fr; }
-
-  html.js-print .print { max-width: 16rem; line-height: 1.45; text-align: left; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -836,7 +789,7 @@ h2 em { font-style: italic; color: var(--clay); }
   body { font-size: 9.6pt; line-height: 1.34; }
 
   /* The CV row is the button that started this print. */
-  .skip, .btn, .plus, .cv-row, .section-nav { display: none !important; }
+  .skip, .btn, .plus, .section-nav { display: none !important; }
 
   .grid {
     max-width: none;
@@ -873,7 +826,7 @@ h2 em { font-style: italic; color: var(--clay); }
   /* A letter page is about 51rem wide, so the narrow-screen breakpoint above
      matches when printing and collapses every grid to one column — which is
      what turned a two page CV into five. Put the columns back. */
-  .spec div, .toolkit div { display: grid; grid-template-columns: 7rem 1fr; }
+  .toolkit div { display: grid; grid-template-columns: 7rem 1fr; }
   /* minmax(0,...) or a long uppercase label sets its own column wider than
      the share it was given and pushes the last one off the sheet. */
   .figures { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -904,14 +857,13 @@ h2 em { font-style: italic; color: var(--clay); }
 
   /* These are all 0.99rem on screen, which is a size the printed body no longer
      uses — left alone they set a fifth larger than the prose around them. */
-  .spec dd, .toolkit dd, .role .title, .role .degrees,
+  .toolkit dd, .role .title, .role .degrees,
   .principles p, .case-body p, .figure-src { font-size: inherit; }
 
   h1 { font-size: 15pt; max-width: none; }
   h2 { font-size: 12pt; margin-bottom: 0.3rem; }
   .standfirst { margin-top: 0.5rem; font-size: 10pt; max-width: none; }
   .deck { margin-bottom: 0.6rem; }
-  .spec { margin-top: 0.7rem; }
 
   /* A collapsed <details> hides its contents through the UA stylesheet, and a
      print run has no way to click one open. The script opens them all before
@@ -942,7 +894,7 @@ h2 em { font-style: italic; color: var(--clay); }
 
   a { text-decoration: none; box-shadow: none !important; }
 
-  .case, .role, .principles > div, .figures > div, .spec div, .toolkit div {
+  .case, .role, .principles > div, .figures > div, .toolkit div {
     break-inside: avoid;
   }
   h1, h2, .label { break-after: avoid; }

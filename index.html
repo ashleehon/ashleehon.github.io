@@ -55,7 +55,7 @@
       <a href="#ai-builds" data-section="ai-builds" aria-label="AI builds">AI</a>
       <a href="#record" data-section="record" aria-label="Experience">Jobs</a>
       <a href="#contact" data-section="contact">Contact</a>
-      <button class="nav-cv" type="button" data-print aria-label="Print CV">CV&nbsp;&darr;</button>
+      <button class="nav-cv" type="button" data-print aria-label="Download CV">CV&nbsp;&darr;</button>
     </nav>
   </header>
 
@@ -69,16 +69,6 @@
         analytics. For the last five I&rsquo;ve shaped the forecasting and reporting systems that
         Disney+, Hulu, ESPN+, and other publishers plan their advertising against — and lately, a
         product of my own.</p>
-      <dl class="spec">
-        <div>
-          <dt>Domain</dt>
-          <dd>forecasting, online streaming, advertising technology</dd>
-        </div>
-        <div class="cv-row">
-          <dt>CV</dt>
-          <dd><button class="lnk print" type="button" data-print>Print or save as a two-page PDF</button></dd>
-        </div>
-      </dl>
     </div>
   </section>
 
@@ -147,7 +137,7 @@
       <p class="deck">Six problems, and what came out the other side.</p>
 
       <div class="cases">
-        <details class="case" id="case-founder" open>
+        <details class="case" id="case-founder">
           <summary>
             <span class="num mono">001</span>
             <h3>A mobile app for people with clay on their hands</h3>
@@ -354,7 +344,7 @@
   <section class="block" id="record">
     <p class="label mono"><span class="idx">04</span><span class="nm">Experience</span></p>
     <div class="content">
-      <h2>Where I&rsquo;ve done it</h2>
+      <h2>Built at these places</h2>
       <div class="roles">
         <div class="role">
           <span class="org">Independent</span>
@@ -408,9 +398,7 @@
 </div>
 
 <script>
-/* The CV is this page, printed. Nothing but a browser can be asked to do that,
-   so the control is revealed only once this has run and wired it up. */
-document.documentElement.classList.add('js-print');
+/* The CV is this page, printed. The header button is the only entry point. */
 for (const el of document.querySelectorAll('[data-print]')) {
   el.addEventListener('click', () => window.print());
 }
