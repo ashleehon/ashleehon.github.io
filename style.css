@@ -205,7 +205,6 @@ a { color: inherit; }
   border-top: 0;
 }
 
-.masthead,
 .block {
   display: grid;
   grid-template-columns: var(--gutter) 1fr;
@@ -255,7 +254,7 @@ a { color: inherit; }
   html.js-lines .block,
   html.js-lines .block > .label,
   html.js-lines .block > .content,
-  html.js-lines .masthead > .content { border-color: transparent; }
+  html.js-lines .masthead { border-color: transparent; }
 }
 
 .block > .content {
@@ -267,27 +266,57 @@ a { color: inherit; }
 .label .idx { display: block; color: var(--clay); font-weight: 500; }
 .label .nm { display: block; margin-top: 0.5rem; }
 
-/* ---------- masthead ---------- */
+/* ---------- dateline masthead ---------- */
 
-.masthead > .label {
-  margin: 0;
-  padding: 1.15rem 1.25rem;
-  color: var(--ink);
+.masthead {
+  display: block;
+  border-bottom: 1px solid var(--rule);
+  background: var(--paper-lift);
 }
-.masthead > .content {
+
+.dateline {
   display: flex;
   flex-wrap: wrap;
+  align-items: baseline;
   justify-content: space-between;
-  gap: 0.35rem 2rem;
-  padding: 1.15rem 2.75rem;
-  border-left: 1px solid var(--rule);
+  gap: 0.35rem 1.25rem;
+  margin: 0;
+  padding: 0.85rem 2.75rem;
 }
+
+.dateline-who,
+.dateline-where {
+  margin: 0;
+  font-size: 0.64rem;
+  line-height: 1.45;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.dateline-who { color: var(--ink); }
+
+.dateline-where {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 0.5rem;
+}
+
+.dateline-sep { color: var(--ink-faint); }
 .masthead a { text-decoration: none; color: var(--clay); }
 .masthead a:hover { text-decoration: underline; text-underline-offset: 3px; }
 
 /* ---------- hero ---------- */
 
-.hero > .content { padding-top: 5.5rem; padding-bottom: 5.5rem; }
+.hero-kicker {
+  display: none;
+  margin: 0 0 0.65rem;
+  color: var(--clay);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+}
+
+.hero > .content { padding-top: 3.25rem; padding-bottom: 5.5rem; }
 
 h1 {
   margin: 0;
@@ -623,8 +652,17 @@ h2 em { font-style: italic; color: var(--clay); }
 @media (max-width: 56rem) {
   :root { --gutter: 0; }
 
+  body { overflow-x: clip; }
+
   .masthead,
   .block { grid-template-columns: 1fr; }
+
+  .dateline {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+    padding: 0.75rem 1.25rem;
+  }
 
   /* Stacked above its content, the label is a bar rather than a column, so it
      stops sticking — a bar pinned to the top of a phone screen would cover the
@@ -640,31 +678,55 @@ h2 em { font-style: italic; color: var(--clay); }
 
   /* The dividing rule turns the corner with the label. Nothing divides the
      masthead once its two halves are stacked. */
-  .block > .content,
-  .masthead > .content { border-left: 0; }
+  .block > .content { border-left: 0; }
 
-  .block > .content { padding: 2rem 1.5rem 2.75rem; }
-  .hero > .content { padding-top: 3rem; padding-bottom: 3.5rem; }
-  .masthead > .content { padding: 1.1rem 1.5rem; }
+  .block > .content { padding: 2rem 1.25rem 2.75rem; }
+
+  .hero { border-top: 0; }
+  .hero > .label { display: none; }
+  .hero-kicker { display: block; }
+  .hero > .content {
+    padding-top: 1.35rem;
+    padding-bottom: 2.5rem;
+  }
+
+  h1 { max-width: none; font-size: clamp(2rem, 9vw, 2.6rem); }
+  .standfirst { margin-top: 1.35rem; font-size: 1.05rem; }
+  .lede { max-width: none; }
 
   .figures, .facets, .principles { grid-template-columns: 1fr; }
   .figures > div + div { padding-left: 0; border-left: 0; }
   .figures > div { padding-right: 0; }
 
   .spec div, .toolkit div, .role { grid-template-columns: 1fr; }
+  .spec div { gap: 0.15rem; padding: 0.75rem 0; }
+  .role { gap: 0.2rem; }
   .role .when { text-align: left; }
 
   /* No room for the outcome beside the title, and it is too much of the point
      to drop, so it takes its own line under it. */
   .case summary {
-    grid-template-columns: 2.4rem 1fr 1.1rem;
-    row-gap: 0.4rem;
+    grid-template-columns: 2.2rem 1fr 1.1rem;
+    row-gap: 0.35rem;
+    padding: 1.25rem 0;
   }
-  .case .num { grid-area: 1 / 1; }
-  .case summary h3 { grid-area: 1 / 2; }
-  .case .plus { grid-area: 1 / 3; }
-  .case .stat { grid-area: 2 / 2 / auto / 4; text-align: left; }
+  .case .num { grid-area: 1 / 1; align-self: start; padding-top: 0.15rem; }
+  .case summary h3 {
+    grid-area: 1 / 2;
+    font-size: clamp(1.05rem, 4.6vw, 1.35rem);
+    line-height: 1.28;
+  }
+  .case .plus { grid-area: 1 / 3; align-self: start; }
+  .case .stat {
+    grid-area: 2 / 2 / auto / 4;
+    text-align: left;
+    font-size: 0.65rem;
+    letter-spacing: 0.05em;
+    line-height: 1.4;
+  }
   .case-body { grid-template-columns: 1fr; }
+
+  html.js-print .print { max-width: 16rem; line-height: 1.45; text-align: left; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -717,7 +779,17 @@ h2 em { font-style: italic; color: var(--clay); }
 
   .masthead, .block { grid-template-columns: 1fr; display: block; }
   .block { border-top: 0; }
-  .block > .content, .masthead > .content { border-left: 0; }
+  .block > .content { border-left: 0; }
+
+  .dateline {
+    padding: 0 0 0.45rem;
+    display: block;
+  }
+  .dateline-who,
+  .dateline-where { display: inline; font-size: 7.5pt; letter-spacing: 0.1em; }
+  .dateline-where::before { content: " · "; color: #888; }
+  .dateline-sep { display: none; }
+  .hero-kicker { display: none !important; }
 
   /* A letter page is about 51rem wide, so the narrow-screen breakpoint above
      matches when printing and collapses every grid to one column — which is
@@ -751,9 +823,6 @@ h2 em { font-style: italic; color: var(--clay); }
 
   .block > .content { padding: 0 0 0.6rem; }
   .hero > .content { padding: 0 0 0.7rem; }
-  .masthead > .content { padding: 0 0 0.5rem; display: block; }
-  .masthead > .label { padding: 0; font-size: 15pt; letter-spacing: 0.04em; }
-  .masthead > .content span + span::before { content: " · "; }
 
   /* These are all 0.99rem on screen, which is a size the printed body no longer
      uses — left alone they set a fifth larger than the prose around them. */

@@ -49,7 +49,7 @@
     [grid, 'left', 0],
     [grid, 'right', 0],
     [grid, 'bottom', 0],
-    [document.querySelector('.masthead > .content'), 'left', 0],
+    [document.querySelector('.masthead'), 'bottom', 1],
   ];
 
   for (const block of document.querySelectorAll('.block')) {
