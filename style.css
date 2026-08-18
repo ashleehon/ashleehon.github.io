@@ -261,10 +261,20 @@ a { color: inherit; }
   background: var(--paper-lift);
 }
 
-.masthead-gutter {
+.masthead-name {
   grid-column: 1;
   grid-row: 1;
+  margin: 0;
+  padding: 0.85rem 1.25rem 0.8rem;
+  font-size: 0.64rem;
+  line-height: 1.45;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--ink);
+  border-bottom: 1px solid var(--rule-soft);
 }
+
+.dateline-name-mobile { display: none; }
 
 .dateline {
   grid-column: 2;
@@ -690,7 +700,9 @@ h2 em { font-style: italic; color: var(--clay); }
     z-index: 20;
   }
 
-  .masthead-gutter { display: none; }
+  .masthead-name { display: none; }
+
+  .dateline-name-mobile { display: inline; }
 
   .dateline {
     flex-direction: column;
@@ -827,6 +839,8 @@ h2 em { font-style: italic; color: var(--clay); }
     padding: 0 0 0.45rem;
     display: block;
   }
+  .masthead-name { display: none; }
+  .dateline-name-mobile { display: inline; }
   .masthead-stack { display: block; }
   .dateline-who,
   .dateline-where { display: inline; font-size: 7.5pt; letter-spacing: 0.1em; }
