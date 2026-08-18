@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Top-section mocks — Ashlee Hon</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  /* comparison shell only — not shipped to index */
+  body.mocks {
+    margin: 0;
+    background: #e8e0d4;
+    font-family: var(--body);
+    color: var(--ink);
+  }
+  .mocks-header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    padding: 1rem 1.5rem 1.1rem;
+    background: #2c2521;
+    color: #f1e7d8;
+    border-bottom: 1px solid #4a4038;
+  }
+  .mocks-header h1 {
+    margin: 0 0 0.35rem;
+    font: 500 1.05rem/1.3 var(--body);
+  }
+  .mocks-header p {
+    margin: 0;
+    font-size: 0.88rem;
+    line-height: 1.5;
+    color: #b3a693;
+    max-width: 52rem;
+  }
+  .mocks-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+    margin-top: 0.85rem;
+    align-items: center;
+  }
+  .mocks-controls label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font: 500 0.78rem/1 var(--mono);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+  .mocks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(22rem, 1fr));
+    gap: 1.75rem;
+    padding: 1.75rem;
+    max-width: 96rem;
+    margin: 0 auto;
+  }
+  .mock-card {
+    background: #fff;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(44, 37, 33, 0.1);
+  }
+  .mock-card-head {
+    padding: 0.85rem 1rem 0.75rem;
+    border-bottom: 1px solid #e8dbc8;
+    background: var(--paper-lift);
+  }
+  .mock-card-head h2 {
+    margin: 0;
+    font: 600 0.95rem/1.3 var(--body);
+  }
+  .mock-card-head p {
+    margin: 0.35rem 0 0;
+    font-size: 0.82rem;
+    line-height: 1.45;
+    color: var(--ink-soft);
+  }
+  .mock-card-head .tag {
+    display: inline-block;
+    margin-bottom: 0.4rem;
+    padding: 0.15rem 0.45rem;
+    background: var(--clay-lift);
+    color: var(--clay);
+    font: 500 0.68rem/1 var(--mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-radius: 3px;
+  }
+  .mock-frame {
+    background: var(--paper);
+    overflow: hidden;
+  }
+  .mock-frame[data-w="mobile"] { width: 390px; max-width: 100%; margin: 0 auto; }
+  .mock-frame[data-w="desktop"] { width: 100%; }
+
+  /* shared mock tokens */
+  .mock { --pad: 1.25rem; font-family: var(--body); color: var(--ink); }
+  .mock a { color: var(--clay); text-decoration: none; }
+  .mock a:hover { text-decoration: underline; text-underline-offset: 3px; }
+  .mock .mono {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    line-height: 1.45;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .mock h1 {
+    margin: 0;
+    font-family: var(--display);
+    font-size: clamp(2rem, 9vw, 2.55rem);
+    font-weight: 400;
+    font-variation-settings: "SOFT" 25, "WONK" 1;
+    line-height: 1.03;
+    letter-spacing: -0.02em;
+  }
+  .mock h1 em { font-style: italic; color: var(--clay); }
+  .mock .standfirst {
+    margin: 1.25rem 0 0;
+    font-size: 1.02rem;
+    line-height: 1.62;
+    color: var(--ink-soft);
+  }
+  .mock .spec {
+    margin: 1.5rem 0 0;
+    padding-top: 0.25rem;
+    border-top: 1px solid var(--rule-soft);
+  }
+  .mock .spec div {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.12rem;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .mock .spec dt {
+    font: 500 0.65rem/1 var(--mono);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .mock .spec dd { margin: 0; font-size: 0.95rem; }
+  .mock .lnk { color: var(--clay); text-decoration: underline; text-underline-offset: 3px; background: none; border: 0; font: inherit; cursor: pointer; padding: 0; }
+
+  /* A — Unified (current redesign direction) */
+  .mock-a { padding: var(--pad); padding-bottom: 1.75rem; }
+  .mock-a .id-name { margin: 0 0 0.45rem; color: var(--ink); letter-spacing: 0.12em; }
+  .mock-a .id-role { margin: 0; color: var(--ink-soft); }
+  .mock-a .id-meta { margin: 0.5rem 0 0; }
+  .mock-a h1 { margin-top: 1.15rem; }
+
+  /* B — Hero-first (headline leads, identity as overline) */
+  .mock-b { padding: var(--pad); padding-bottom: 1.75rem; }
+  .mock-b .overline {
+    margin: 0 0 0.85rem;
+    padding-bottom: 0.85rem;
+    border-bottom: 1px solid var(--rule-soft);
+    color: var(--ink);
+    letter-spacing: 0.1em;
+  }
+  .mock-b .overline span { color: var(--ink-faint); }
+  .mock-b h1 { max-width: none; }
+  .mock-b .meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 0.75rem;
+    margin-top: 1.35rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--rule-soft);
+  }
+  .mock-b .meta-row a { font-size: 0.82rem; }
+
+  /* C — Editorial nameplate */
+  .mock-c { padding: 0; padding-bottom: 1.75rem; }
+  .mock-c .nameplate {
+    padding: 1.35rem var(--pad) 1.1rem;
+    background: var(--paper-deep);
+    border-bottom: 1px solid var(--rule);
+  }
+  .mock-c .nameplate h2 {
+    margin: 0;
+    font-family: var(--display);
+    font-size: 1.65rem;
+    font-weight: 400;
+    font-variation-settings: "SOFT" 30, "WONK" 0;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+  .mock-c .nameplate .role {
+    margin: 0.35rem 0 0;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    line-height: 1.45;
+  }
+  .mock-c .nameplate .meta {
+    margin: 0.65rem 0 0;
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+  }
+  .mock-c .body { padding: 1.15rem var(--pad) 0; }
+
+  /* D — Dateline (single compressed band) */
+  .mock-d { padding: 0; padding-bottom: 1.75rem; }
+  .mock-d .dateline {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.35rem 1rem;
+    padding: 0.75rem var(--pad);
+    border-bottom: 1px solid var(--rule);
+    background: var(--paper-lift);
+  }
+  .mock-d .dateline .who {
+    margin: 0;
+    color: var(--ink);
+    letter-spacing: 0.1em;
+    font-size: 0.64rem;
+  }
+  .mock-d .dateline .where {
+    margin: 0;
+    font-size: 0.64rem;
+  }
+  .mock-d .body { padding: 1.25rem var(--pad) 0; }
+  .mock-d .kicker {
+    margin: 0 0 0.65rem;
+    color: var(--clay);
+    font-weight: 500;
+    letter-spacing: 0.12em;
+  }
+
+  /* E — Statement first (headline above identity) */
+  .mock-e { padding: var(--pad); padding-bottom: 1.75rem; }
+  .mock-e h1 { margin-bottom: 1rem; }
+  .mock-e .standfirst { margin-top: 0; }
+  .mock-e .identity-band {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem 1rem;
+    margin-top: 1.35rem;
+    padding: 0.85rem 0;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .mock-e .identity-band .who {
+    margin: 0;
+    color: var(--ink);
+    letter-spacing: 0.1em;
+  }
+  .mock-e .identity-band .role {
+    margin: 0.15rem 0 0;
+    font-size: 0.62rem;
+    color: var(--ink-soft);
+    letter-spacing: 0.07em;
+  }
+  .mock-e .identity-band .links {
+    margin: 0;
+    font-size: 0.64rem;
+    text-align: right;
+  }
+
+  /* desktop tweaks inside frames */
+  .mock-frame[data-w="desktop"] .mock h1 {
+    font-size: clamp(2.4rem, 4vw, 3.6rem);
+    max-width: 18ch;
+  }
+  .mock-frame[data-w="desktop"] .mock-a,
+  .mock-frame[data-w="desktop"] .mock-b,
+  .mock-frame[data-w="desktop"] .mock-e {
+    display: grid;
+    grid-template-columns: 10rem 1fr;
+    gap: 0;
+    padding: 0;
+  }
+  .mock-frame[data-w="desktop"] .mock-a .sidebar,
+  .mock-frame[data-w="desktop"] .mock-b .sidebar,
+  .mock-frame[data-w="desktop"] .mock-e .sidebar {
+    padding: 2rem 1.25rem;
+    border-right: 1px solid var(--rule);
+  }
+  .mock-frame[data-w="desktop"] .mock-a .main,
+  .mock-frame[data-w="desktop"] .mock-b .main,
+  .mock-frame[data-w="desktop"] .mock-e .main {
+    padding: 2.4rem 2.5rem 2.5rem;
+  }
+  .mock-frame[data-w="desktop"] .mock-a .id-name { display: none; }
+  .mock-frame[data-w="desktop"] .mock-a .sidebar .mono { color: var(--ink); font-size: 0.7rem; letter-spacing: 0.1em; }
+  .mock-frame[data-w="desktop"] .mock-b .overline { border: 0; padding: 0; margin: 0 0 1.25rem; }
+  .mock-frame[data-w="desktop"] .mock-c .nameplate {
+    display: grid;
+    grid-template-columns: 10rem 1fr;
+    align-items: end;
+    gap: 1rem;
+  }
+  .mock-frame[data-w="desktop"] .mock-c .nameplate .side { color: var(--ink-faint); }
+  .mock-frame[data-w="desktop"] .mock-c .body { padding: 2.4rem 2.5rem 0; }
+  .mock-frame[data-w="desktop"] .mock-c .body h1 { max-width: 20ch; font-size: clamp(2.6rem, 4.5vw, 4.2rem); }
+  .mock-frame[data-w="desktop"] .mock-d .body { padding: 2.4rem 2.5rem 0; }
+  .mock-frame[data-w="desktop"] .mock-d .body h1 { max-width: 20ch; font-size: clamp(2.6rem, 4.5vw, 4.2rem); }
+  .mock-frame[data-w="desktop"] .mock-e .identity-band { margin-top: 1.75rem; }
+
+  @media (max-width: 40rem) {
+    .mocks-grid { grid-template-columns: 1fr; padding: 1rem; }
+  }
+</style>
+</head>
+<body class="mocks">
+
+<header class="mocks-header">
+  <h1>Top-section layout mocks</h1>
+  <p>Five directions for the opening block — same copy, different hierarchy. Toggle viewport width, pick a letter, and tell me which to ship (or mix elements across options).</p>
+  <div class="mocks-controls">
+    <span style="font:500 0.72rem/1 var(--mono);letter-spacing:0.08em;text-transform:uppercase;color:#8d8171">Viewport</span>
+    <label><input type="radio" name="vp" value="mobile" checked> Mobile (390px)</label>
+    <label><input type="radio" name="vp" value="desktop"> Desktop</label>
+  </div>
+</header>
+
+<div class="mocks-grid">
+
+  <!-- A -->
+  <article class="mock-card">
+    <div class="mock-card-head">
+      <span class="tag">A</span>
+      <h2>Unified block</h2>
+      <p>Current redesign. Compact mono identity, no section label, headline follows immediately. Feels like one intro gesture.</p>
+    </div>
+    <div class="mock-frame" data-w="mobile">
+      <div class="mock mock-a">
+        <div class="sidebar"><p class="mono">Ashlee&nbsp;Hon</p></div>
+        <div class="main">
+          <p class="mono id-name">Ashlee&nbsp;Hon</p>
+          <p class="mono id-role">Product Manager · Forecasting &amp; BI&nbsp;Automation</p>
+          <p class="mono id-meta">New York · <a href="#">LinkedIn →</a></p>
+          <h1>Complex data, turned into products <em>people trust</em></h1>
+          <p class="standfirst">I'm a product manager in New York — before that, seven years in data and analytics. For the last five I've shaped the forecasting and reporting systems that Disney+, Hulu, ESPN+, and other publishers plan their advertising against.</p>
+          <dl class="spec">
+            <div><dt>Domain</dt><dd>forecasting, online streaming, advertising technology</dd></div>
+            <div><dt>Reach me</dt><dd><a class="lnk" href="#">linkedin.com/in/ashleehon</a></dd></div>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- B -->
+  <article class="mock-card">
+    <div class="mock-card-head">
+      <span class="tag">B</span>
+      <h2>Hero-first</h2>
+      <p>Headline is the anchor. Name and role shrink to a single overline rule — metadata moves below the standfirst.</p>
+    </div>
+    <div class="mock-frame" data-w="mobile">
+      <div class="mock mock-b">
+        <div class="sidebar"><p class="mono"><span style="color:var(--clay)">00</span> Intro</p></div>
+        <div class="main">
+          <p class="mono overline">Ashlee Hon <span>·</span> Product Manager <span>·</span> Forecasting &amp; BI</p>
+          <h1>Complex data, turned into products <em>people trust</em></h1>
+          <p class="standfirst">I'm a product manager in New York — before that, seven years in data and analytics. For the last five I've shaped the forecasting and reporting systems that Disney+, Hulu, ESPN+, and other publishers plan their advertising against.</p>
+          <div class="meta-row mono">
+            <span>New York</span>
+            <a href="#">LinkedIn →</a>
+            <a href="#">Print CV</a>
+          </div>
+          <dl class="spec">
+            <div><dt>Domain</dt><dd>forecasting, online streaming, advertising technology</dd></div>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- C -->
+  <article class="mock-card">
+    <div class="mock-card-head">
+      <span class="tag">C</span>
+      <h2>Editorial nameplate</h2>
+      <p>Name in Fraunces on a tinted band — magazine/portfolio feel. Role reads in sentence case before the big headline.</p>
+    </div>
+    <div class="mock-frame" data-w="mobile">
+      <div class="mock mock-c">
+        <div class="nameplate">
+          <p class="mono side">00 Intro</p>
+          <div>
+            <h2>Ashlee Hon</h2>
+            <p class="role">Product manager · Forecasting &amp; BI automation</p>
+            <p class="meta">New York · <a href="#">LinkedIn</a></p>
+          </div>
+        </div>
+        <div class="body">
+          <h1>Complex data, turned into products <em>people trust</em></h1>
+          <p class="standfirst">I'm a product manager in New York — before that, seven years in data and analytics. For the last five I've shaped the forecasting and reporting systems that Disney+, Hulu, ESPN+, and other publishers plan their advertising against.</p>
+          <dl class="spec">
+            <div><dt>Domain</dt><dd>forecasting, online streaming, advertising technology</dd></div>
+            <div><dt>CV</dt><dd><button class="lnk" type="button">Print or save as a two-page PDF</button></dd></div>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- D -->
+  <article class="mock-card">
+    <div class="mock-card-head">
+      <span class="tag">D</span>
+      <h2>Dateline</h2>
+      <p>Ultra-compact masthead band — one line of identity, then a clay kicker and headline. Maximum density, newspaper rhythm.</p>
+    </div>
+    <div class="mock-frame" data-w="mobile">
+      <div class="mock mock-d">
+        <div class="dateline">
+          <p class="mono who">Ashlee Hon · PM · Forecasting &amp; BI</p>
+          <p class="mono where">NYC · <a href="#">LinkedIn</a></p>
+        </div>
+        <div class="body">
+          <p class="mono kicker">Intro</p>
+          <h1>Complex data, turned into products <em>people trust</em></h1>
+          <p class="standfirst">I'm a product manager in New York — before that, seven years in data and analytics. For the last five I've shaped the forecasting and reporting systems that Disney+, Hulu, ESPN+, and other publishers plan their advertising against.</p>
+          <dl class="spec">
+            <div><dt>Domain</dt><dd>forecasting, online streaming, advertising technology</dd></div>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- E -->
+  <article class="mock-card">
+    <div class="mock-card-head">
+      <span class="tag">E</span>
+      <h2>Statement first</h2>
+      <p>Lead with the thesis — identity comes after the standfirst as a signed footer. Bold for recruiters scanning fast.</p>
+    </div>
+    <div class="mock-frame" data-w="mobile">
+      <div class="mock mock-e">
+        <div class="sidebar"><p class="mono"><span style="color:var(--clay)">00</span> Intro</p></div>
+        <div class="main">
+          <h1>Complex data, turned into products <em>people trust</em></h1>
+          <p class="standfirst">I'm a product manager in New York — before that, seven years in data and analytics. For the last five I've shaped the forecasting and reporting systems that Disney+, Hulu, ESPN+, and other publishers plan their advertising against.</p>
+          <div class="identity-band">
+            <div>
+              <p class="mono who">Ashlee Hon</p>
+              <p class="mono role">Product Manager · Forecasting &amp; BI Automation · New York</p>
+            </div>
+            <p class="mono links"><a href="#">LinkedIn →</a><br><a href="#">Print CV</a></p>
+          </div>
+          <dl class="spec">
+            <div><dt>Domain</dt><dd>forecasting, online streaming, advertising technology</dd></div>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </article>
+
+</div>
+
+<script>
+  document.querySelectorAll('input[name="vp"]').forEach(function (input) {
+    input.addEventListener('change', function () {
+      document.querySelectorAll('.mock-frame').forEach(function (frame) {
+        frame.dataset.w = input.value;
+      });
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nav &amp; color mocks — Ashlee Hon</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  body.mocks {
+    margin: 0;
+    background: #e8e0d4;
+    font-family: var(--body);
+    color: var(--ink);
+  }
+  .mocks-header {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    padding: 1rem 1.5rem 1.1rem;
+    background: #2c2521;
+    color: #f1e7d8;
+    border-bottom: 1px solid #4a4038;
+  }
+  .mocks-header h1 { margin: 0 0 0.35rem; font: 500 1.05rem/1.3 var(--body); }
+  .mocks-header p {
+    margin: 0;
+    font-size: 0.88rem;
+    line-height: 1.5;
+    color: #b3a693;
+    max-width: 54rem;
+  }
+  .mocks-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+    margin-top: 0.85rem;
+    align-items: center;
+  }
+  .mocks-controls label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font: 500 0.78rem/1 var(--mono);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+  .mocks-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(22rem, 1fr));
+    gap: 1.75rem;
+    padding: 1.75rem;
+    max-width: 96rem;
+    margin: 0 auto;
+  }
+  .mock-card {
+    background: #fff;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(44, 37, 33, 0.1);
+  }
+  .mock-card-head {
+    padding: 0.85rem 1rem 0.75rem;
+    border-bottom: 1px solid var(--rule);
+    background: var(--paper-lift);
+  }
+  .mock-card-head h2 { margin: 0; font: 600 0.95rem/1.3 var(--body); }
+  .mock-card-head p {
+    margin: 0.35rem 0 0;
+    font-size: 0.82rem;
+    line-height: 1.45;
+    color: var(--ink-soft);
+  }
+  .mock-card-head .tag {
+    display: inline-block;
+    margin-bottom: 0.4rem;
+    padding: 0.15rem 0.45rem;
+    background: var(--clay-lift);
+    color: var(--clay);
+    font: 500 0.68rem/1 var(--mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-radius: 3px;
+  }
+  .mock-frame {
+    background: var(--paper);
+    overflow: hidden;
+    border-top: 1px solid var(--rule-soft);
+  }
+  .mock-frame[data-w="mobile"] { width: 390px; max-width: 100%; margin: 0 auto; }
+  .mock-frame[data-w="desktop"] { width: 100%; }
+
+  /* ---- shared mini-site chrome inside each mock ---- */
+  .mini {
+    --gutter: 10rem;
+    font-family: var(--body);
+    color: var(--ink);
+    border-left: 1px solid var(--rule);
+    border-right: 1px solid var(--rule);
+  }
+  .mini a { color: var(--clay); text-decoration: none; }
+  .mini a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+  .mini-dateline {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.4rem 1rem;
+    padding: 1.1rem 1.25rem;
+    border-bottom: 1px solid var(--rule);
+    background: var(--paper-lift);
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    line-height: 1.45;
+  }
+  .mini-dateline.deep { background: var(--paper-deep); }
+  .mini-dateline .who { color: var(--ink); margin: 0; }
+  .mini-dateline .where { margin: 0; color: var(--ink-faint); }
+
+  .mini-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.15rem 0.5rem;
+    padding: 0.55rem 1.25rem;
+    border-bottom: 1px solid var(--rule-soft);
+    background: var(--paper-lift);
+    font-family: var(--mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    line-height: 1.5;
+  }
+  .mini-nav a {
+    color: var(--ink-faint);
+    padding: 0.2rem 0;
+    text-decoration: none;
+  }
+  .mini-nav a:hover,
+  .mini-nav a.is-here { color: var(--clay); text-decoration: none; }
+  .mini-nav a.is-here { font-weight: 500; }
+  .mini-nav .sep { color: var(--rule); user-select: none; }
+
+  .mini-hero {
+    padding: 1.35rem 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .mini-kicker {
+    margin: 0 0 0.65rem;
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--clay);
+  }
+  .mini-hero h1 {
+    margin: 0;
+    font-family: var(--display);
+    font-size: clamp(1.65rem, 7vw, 2.1rem);
+    font-weight: 400;
+    font-variation-settings: "SOFT" 25, "WONK" 1;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+  .mini-hero h1 em { font-style: italic; color: var(--clay); }
+  .mini-hero p {
+    margin: 1rem 0 0;
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: var(--ink-soft);
+  }
+
+  .mini-peek {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .mini-peek div {
+    padding: 0.85rem 1rem;
+    border-right: 1px solid var(--rule-soft);
+  }
+  .mini-peek div:last-child { border-right: 0; }
+  .mini-peek .fig {
+    display: block;
+    font-family: var(--display);
+    font-size: 1.35rem;
+    color: var(--clay);
+    line-height: 1;
+  }
+  .mini-peek .fig.alt { color: var(--green); }
+  .mini-peek .lbl {
+    display: block;
+    margin-top: 0.25rem;
+    font-family: var(--mono);
+    font-size: 0.52rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+
+  .mini-section {
+    padding: 0.85rem 1.25rem;
+    border-bottom: 1px solid var(--rule-soft);
+    font-family: var(--mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .mini-section .idx { color: var(--clay); font-weight: 500; }
+
+  /* D3 overview cards */
+  .mini-overview {
+    padding: 1.15rem 1.25rem 1.25rem;
+  }
+  .mini-overview-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .mini-overview-head h2 {
+    margin: 0;
+    font-family: var(--display);
+    font-size: 1.35rem;
+    font-weight: 400;
+    line-height: 1.1;
+  }
+  .mini-overview-head a {
+    font-family: var(--mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .mini-cards {
+    display: grid;
+    gap: 0.55rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .mini-cards li { margin: 0; }
+  .mini-cards a {
+    display: grid;
+    grid-template-columns: 2rem 1fr auto;
+    gap: 0.5rem 0.65rem;
+    align-items: start;
+    padding: 0.75rem 0.85rem;
+    border: 1px solid var(--rule-soft);
+    background: var(--paper-lift);
+    text-decoration: none;
+    color: inherit;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .mini-cards a:hover {
+    border-color: var(--rule);
+    background: var(--paper-deep);
+    text-decoration: none;
+  }
+  .mini-cards .idx {
+    font-family: var(--mono);
+    font-size: 0.58rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    color: var(--clay);
+    padding-top: 0.15rem;
+  }
+  .mini-cards .title {
+    font-family: var(--body);
+    font-size: 0.88rem;
+    font-weight: 500;
+    line-height: 1.25;
+    color: var(--ink);
+  }
+  .mini-cards .deck {
+    grid-column: 2;
+    font-size: 0.78rem;
+    line-height: 1.45;
+    color: var(--ink-soft);
+    margin-top: -0.15rem;
+  }
+  .mini-cards .arrow {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--clay);
+    padding-top: 0.1rem;
+  }
+
+  .mini-mode-toggle {
+    display: flex;
+    gap: 0;
+    margin: 0 1.25rem 0;
+    padding-top: 0.85rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .mini-mode-toggle button {
+    flex: 1;
+    margin: 0;
+    padding: 0.55rem 0.5rem;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    background: transparent;
+    font-family: var(--mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    cursor: pointer;
+  }
+  .mini-mode-toggle button.is-on {
+    color: var(--clay);
+    border-bottom-color: var(--clay);
+    font-weight: 500;
+  }
+
+  /* desktop frames */
+  .mock-frame[data-w="desktop"] .mini { --gutter: 7rem; border: 1px solid var(--rule); border-top: 0; }
+  .mock-frame[data-w="desktop"] .mini-dateline { padding: 1.1rem 2.25rem; font-size: 0.64rem; }
+  .mock-frame[data-w="desktop"] .mini-nav { padding: 0.55rem 2.25rem; }
+  .mock-frame[data-w="desktop"] .mini-hero {
+    display: grid;
+    grid-template-columns: var(--gutter) 1fr;
+    gap: 0;
+    padding: 0;
+  }
+  .mock-frame[data-w="desktop"] .mini-hero .side {
+    padding: 2rem 1rem;
+    border-right: 1px solid var(--rule);
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .mock-frame[data-w="desktop"] .mini-hero .side .idx { display: block; color: var(--clay); font-weight: 500; }
+  .mock-frame[data-w="desktop"] .mini-hero .body { padding: 2rem 2.25rem 2.25rem; }
+  .mock-frame[data-w="desktop"] .mini-hero .mini-kicker { display: none; }
+  .mock-frame[data-w="desktop"] .mini-hero h1 { font-size: clamp(2rem, 3.5vw, 2.75rem); max-width: 16ch; }
+  .mock-frame[data-w="desktop"] .mini-peek { grid-template-columns: repeat(4, 1fr); }
+  .mock-frame[data-w="desktop"] .mini-overview { padding: 1.5rem 2.25rem; }
+  .mock-frame[data-w="desktop"] .mini-cards a { grid-template-columns: 2.5rem 1fr auto; padding: 0.85rem 1rem; }
+  .mock-frame[data-w="desktop"] .mini-mode-toggle { margin: 0 2.25rem; padding-top: 1rem; }
+
+  @media (max-width: 40rem) {
+    .mocks-grid { grid-template-columns: 1fr; padding: 1rem; }
+  }
+</style>
+</head>
+<body class="mocks">
+
+<header class="mocks-header">
+  <h1>Nav &amp; color direction mocks</h1>
+  <p>Three ways to add wayfinding and subtle color without turning the site into a dashboard. Toggle viewport width. Each mock shows the opening ~2 sections — not the full page.</p>
+  <div class="mocks-controls">
+    <span style="font:500 0.72rem/1 var(--mono);letter-spacing:0.08em;text-transform:uppercase;color:#8d8171">Viewport</span>
+    <label><input type="radio" name="vp" value="mobile" checked> Mobile (390px)</label>
+    <label><input type="radio" name="vp" value="desktop"> Desktop</label>
+  </div>
+</header>
+
+<div class="mocks-grid">
+
+  <!-- D1 -->
+  <article class="mock-card">
+    <div class="mock-card-head">
+      <span class="tag">D1</span>
+      <h2>Deep dateline</h2>
+      <p>Same layout you have now — only the header band uses <code>paper-deep</code>. Zero new UI; slightly warmer anchor at the top.</p>
+    </div>
+    <div class="mock-frame" data-w="mobile">
+      <div class="mini">
+        <div class="mini-dateline deep">
+          <p class="who">Ashlee Hon · Product Manager · Forecasting</p>
+          <p class="where">New York · <a href="#">LinkedIn →</a></p>
+        </div>
+        <div class="mini-hero">
+          <div class="side"><span class="idx">00</span> Intro</div>
+          <div class="body">
+            <p class="mini-kicker">Intro</p>
+            <h1>Complex data, turned into products <em>people trust</em></h1>
+            <p>Seven years in analytics, five shaping forecasting systems at Disney+, Hulu, ESPN+, and other publishers.</p>
+          </div>
+        </div>
+        <div class="mini-peek">
+          <div><span class="fig">30%</span><span class="lbl">Faster planning</span></div>
+          <div><span class="fig alt">11%</span><span class="lbl">Accuracy gained</span></div>
+        </div>
+        <div class="mini-section"><span class="idx">01</span> Figures · <span class="idx">02</span> Profile · …</div>
+      </div>
+    </div>
+  </article>
+
+  <!-- D2 -->
+  <article class="mock-card">
+    <div class="mock-card-head">
+      <span class="tag">D2</span>
+      <h2>Section nav</h2>
+      <p>Compact anchor row under the dateline. Scroll CV stays default; nav helps people who land mid-page or want to jump.</p>
+    </div>
+    <div class="mock-frame" data-w="mobile">
+      <div class="mini">
+        <div class="mini-dateline deep">
+          <p class="who">Ashlee Hon · Product Manager · Forecasting</p>
+          <p class="where">New York · <a href="#">LinkedIn →</a></p>
+        </div>
+        <nav class="mini-nav" aria-label="Sections">
+          <a class="is-here" href="#">Intro</a><span class="sep">·</span>
+          <a href="#">Figures</a><span class="sep">·</span>
+          <a href="#">Work</a><span class="sep">·</span>
+          <a href="#">AI</a><span class="sep">·</span>
+          <a href="#">Record</a><span class="sep">·</span>
+          <a href="#">Contact</a>
+        </nav>
+        <div class="mini-hero">
+          <div class="side"><span class="idx">00</span> Intro</div>
+          <div class="body">
+            <p class="mini-kicker">Intro</p>
+            <h1>Complex data, turned into products <em>people trust</em></h1>
+            <p>Seven years in analytics, five shaping forecasting systems at Disney+, Hulu, ESPN+, and other publishers.</p>
+          </div>
+        </div>
+        <div class="mini-peek">
+          <div><span class="fig">30%</span><span class="lbl">Faster planning</span></div>
+          <div><span class="fig alt">11%</span><span class="lbl">Accuracy gained</span></div>
+        </div>
+        <div class="mini-section"><span class="idx">03</span> Work — case studies below</div>
+      </div>
+    </div>
+  </article>
+
+  <!-- D3 -->
+  <article class="mock-card">
+    <div class="mock-card-head">
+      <span class="tag">D3</span>
+      <h2>Overview mode</h2>
+      <p>Optional entry — toggle between scroll CV and a section card grid. Default stays scroll; power users opt in via tab or link.</p>
+    </div>
+    <div class="mock-frame" data-w="mobile">
+      <div class="mini">
+        <div class="mini-dateline deep">
+          <p class="who">Ashlee Hon · Product Manager · Forecasting</p>
+          <p class="where">New York · <a href="#">LinkedIn →</a></p>
+        </div>
+        <div class="mini-mode-toggle" role="tablist">
+          <button type="button" class="">Scroll CV</button>
+          <button type="button" class="is-on">Overview</button>
+        </div>
+        <div class="mini-overview">
+          <div class="mini-overview-head">
+            <h2>Pick a section</h2>
+            <a href="#">Full scroll view →</a>
+          </div>
+          <ul class="mini-cards">
+            <li>
+              <a href="#">
+                <span class="idx">00</span>
+                <span class="title">Intro</span>
+                <span class="arrow">→</span>
+                <span class="deck">PM in NY — forecasting &amp; reporting for streaming publishers.</span>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <span class="idx">01</span>
+                <span class="title">Figures</span>
+                <span class="arrow">→</span>
+                <span class="deck">30% faster planning, 11% accuracy gained — shipped outcomes.</span>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <span class="idx">03</span>
+                <span class="title">Work</span>
+                <span class="arrow">→</span>
+                <span class="deck">Case studies: forecasting platform, delivery model, mobile app.</span>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <span class="idx">04</span>
+                <span class="title">AI builds</span>
+                <span class="arrow">→</span>
+                <span class="deck">Confluence dashboards, audience monitors, poker on Databricks.</span>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <span class="idx">08</span>
+                <span class="title">Contact</span>
+                <span class="arrow">→</span>
+                <span class="deck">LinkedIn — let's talk.</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- Current (reference) -->
+  <article class="mock-card">
+    <div class="mock-card-head">
+      <span class="tag">Now</span>
+      <h2>Current (live)</h2>
+      <p>What shipped — <code>paper-lift</code> dateline, sticky 00–08 labels, no section nav, scroll-only.</p>
+    </div>
+    <div class="mock-frame" data-w="mobile">
+      <div class="mini">
+        <div class="mini-dateline">
+          <p class="who">Ashlee Hon · Product Manager · Forecasting</p>
+          <p class="where">New York · <a href="#">LinkedIn →</a></p>
+        </div>
+        <div class="mini-hero">
+          <div class="side"><span class="idx">00</span> Intro</div>
+          <div class="body">
+            <p class="mini-kicker">Intro</p>
+            <h1>Complex data, turned into products <em>people trust</em></h1>
+            <p>Seven years in analytics, five shaping forecasting systems at Disney+, Hulu, ESPN+, and other publishers.</p>
+          </div>
+        </div>
+        <div class="mini-peek">
+          <div><span class="fig">30%</span><span class="lbl">Faster planning</span></div>
+          <div><span class="fig alt">11%</span><span class="lbl">Accuracy gained</span></div>
+        </div>
+        <div class="mini-section"><span class="idx">01</span> Figures · no nav row</div>
+      </div>
+    </div>
+  </article>
+
+</div>
+
+<script>
+  document.querySelectorAll('input[name="vp"]').forEach(function (input) {
+    input.addEventListener('change', function () {
+      document.querySelectorAll('.mock-frame').forEach(function (frame) {
+        frame.dataset.w = input.value;
+      });
+    });
+  });
+</script>
+</body>
+</html>
