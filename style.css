@@ -739,6 +739,10 @@ h2 em { font-style: italic; color: var(--clay); }
   .figures > div + div { padding-left: 0; border-left: 0; }
   .figures > div { padding-right: 0; }
 
+  /* Single column: alternate by row. Desktop keeps the 2×2 checkerboard instead. */
+  .figures-4 > div:nth-child(odd) .figure { color: var(--clay); }
+  .figures-4 > div:nth-child(even) .figure { color: var(--green); }
+
   h1 { max-width: none; font-size: clamp(2rem, 9vw, 2.6rem); }
   .standfirst { margin-top: 1.35rem; font-size: 1.05rem; }
 
