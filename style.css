@@ -652,7 +652,8 @@ h2 em { font-style: italic; color: var(--clay); }
   display: grid;
   grid-template-columns: 9.5rem 1fr 8rem;
   gap: 0.15rem 1.5rem;
-  align-items: baseline;
+  align-items: center;
+  min-height: calc(2.1rem + 2lh + 0.1rem);
   padding: 1.05rem 0;
   border-top: 1px solid var(--rule-soft);
 }
@@ -663,6 +664,14 @@ h2 em { font-style: italic; color: var(--clay); }
   text-align: right;
   letter-spacing: 0.06em;
   font-variant-numeric: tabular-nums;
+}
+
+.role-education .when {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.1rem;
+  color: var(--ink-soft);
 }
 
 .title .degrees { color: var(--ink-faint); }
@@ -767,8 +776,9 @@ h2 em { font-style: italic; color: var(--clay); }
   .standfirst { margin-top: 1.35rem; font-size: 1.05rem; }
 
   .toolkit div, .role { grid-template-columns: 1fr; }
-  .role { gap: 0.2rem; }
+  .role { gap: 0.2rem; min-height: auto; align-items: start; }
   .role .when { text-align: left; }
+  .role-education .when { align-items: flex-start; }
 
   /* No room for the outcome beside the title, and it is too much of the point
      to drop, so it takes its own line under it. */
